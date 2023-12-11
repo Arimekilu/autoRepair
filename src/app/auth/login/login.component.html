@@ -1,6 +1,6 @@
-<form class="container" [formGroup]="regForm">
+<form class="container" [formGroup]="loginForm">
 
-  <h3>Регистрация</h3>
+  <h3>Вход</h3>
 
   <mat-form-field class="example-full-width">
     <mat-label>Введите email</mat-label>
@@ -12,10 +12,11 @@
     <input matInput placeholder="Password" type="password" formControlName="password" >
   </mat-form-field>
 
-  <button mat-raised-button [disabled]="regForm.invalid" (click)="submit($event)">Регистрация</button>
+  <button mat-raised-button [disabled]="loginForm.invalid" (click)="submit($event)">Войти</button>
 </form>
 
 <div *ngIf="error" class="error">
   <h3>{{error.code}}</h3>
   <p>{{error.message}}</p>
 </div>
+

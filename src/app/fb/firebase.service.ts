@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {initializeApp} from "firebase/app";
 import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCeefMV0_PXkd_GeFyepWdCMrTbdtwU4R0",
@@ -19,27 +20,18 @@ export class FirebaseService {
   app
   auth
 
-  regNewUser(email: string, password: string) {
-    createUserWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => {
-        // Signed up
-        const user = userCredential.user;
-        console.log()
-        console.log(`Пользователь (${email}) успешно зарегистрирован`)
+  isAuthentificated: Observable<any>
 
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(error)
+  isAuth() {
+    console.log(this.auth.currentUser)
+    console.log(this.auth.currentUser?.providerId)
+    return !!this.auth.currentUser?.providerId
 
-        // ..
-      });
   }
 
   constructor() {
     this.app = initializeApp(firebaseConfig)
     this.auth = getAuth();
+    this.isAuthentificated = new BehaviorSubject(this.auth.currentUser?.providerId)
   }
 }

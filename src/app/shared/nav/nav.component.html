@@ -5,9 +5,15 @@
     <button mat-raised-button color="primary">Заказы</button>
     <button mat-raised-button color="primary">Работы</button>
   </div>
-  <div>
-    <button mat-raised-button color="primary">Вход</button>
+  <div *ngIf="isAuth; else notAuth">
     <button mat-raised-button>ClientInfo</button>
     <button mat-raised-button color="warn">Выйти</button>
   </div>
+
+  <ng-template #notAuth>
+    <div>
+      <button mat-raised-button color="primary">Вход</button>
+      <button mat-raised-button color="primary">Регистрация</button>
+    </div>
+  </ng-template>
 </nav>
