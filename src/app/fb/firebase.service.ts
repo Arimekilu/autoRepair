@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { initializeApp } from "firebase/app";
+import {Injectable} from '@angular/core';
+import {initializeApp} from "firebase/app";
+import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCeefMV0_PXkd_GeFyepWdCMrTbdtwU4R0",
@@ -16,7 +17,29 @@ const firebaseConfig = {
 })
 export class FirebaseService {
   app
+  auth
+
+  regNewUser(email: string, password: string) {
+    createUserWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        console.log()
+        console.log(`Пользователь (${email}) успешно зарегистрирован`)
+
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error)
+
+        // ..
+      });
+  }
+
   constructor() {
     this.app = initializeApp(firebaseConfig)
+    this.auth = getAuth();
   }
 }

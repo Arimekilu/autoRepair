@@ -1,13 +1,14 @@
-<nav>
-  <div>
-    <button mat-raised-button color="primary">Добавить клиента</button>
-    <button mat-raised-button color="primary">Клиенты</button>
-    <button mat-raised-button color="primary">Заказы</button>
-    <button mat-raised-button color="primary">Работы</button>
-  </div>
-  <div>
-    <button mat-raised-button color="primary">Вход</button>
-    <button mat-raised-button>ClientInfo</button>
-    <button mat-raised-button color="warn">Выйти</button>
-  </div>
-</nav>
+<form class="container" [formGroup]="regForm">
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Введите email</mat-label>
+    <input matInput placeholder="Email" type="email" formControlName="email">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Введите пароль</mat-label>
+    <input matInput placeholder="Password" type="password" formControlName="password" >
+  </mat-form-field>
+
+  <button mat-raised-button [disabled]="regForm.invalid" (click)="submit($event)">Регистрация</button>
+</form>
