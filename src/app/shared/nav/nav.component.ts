@@ -6,18 +6,23 @@ import {FirebaseService} from "../../fb/firebase.service";
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit{
+export class NavComponent implements OnInit {
+  loggedIn$: any
+  logout(){}
 
-  public isAuth
 
   constructor(private firebaseService: FirebaseService) {
-    this.isAuth = firebaseService.isAuth()
+    this.logout = firebaseService.logout
+
   }
 
   ngOnInit(): void {
-    this.isAuth = this.firebaseService.isAuth()
-    console.log(this.firebaseService.auth.currentUser)
+    this.loggedIn$ = this.firebaseService.loggedIn$
+  }
+
+  test() {
 
   }
+
 
 }

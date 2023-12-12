@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {initializeApp} from "firebase/app";
-import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {getAuth, signOut } from "firebase/auth";
+import {authState } from "rxfire/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCeefMV0_PXkd_GeFyepWdCMrTbdtwU4R0",
@@ -19,19 +19,26 @@ const firebaseConfig = {
 export class FirebaseService {
   app
   auth
+  loggedIn$
 
-  isAuthentificated: Observable<any>
 
-  isAuth() {
-    console.log(this.auth.currentUser)
-    console.log(this.auth.currentUser?.providerId)
-    return !!this.auth.currentUser?.providerId
-
-  }
 
   constructor() {
     this.app = initializeApp(firebaseConfig)
     this.auth = getAuth();
-    this.isAuthentificated = new BehaviorSubject(this.auth.currentUser?.providerId)
+   this.loggedIn$ = authState(this.auth).subscribe(user => {
+      console.log(user, ' will be null if logged out');
+    });
+
+
+  }
+
+  logout(){
+    console.log('logout')
+    signOut(this.auth).then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+    });
   }
 }
