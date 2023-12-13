@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FirebaseService} from "../../fb/firebase.service";
 
 @Component({
@@ -6,22 +6,19 @@ import {FirebaseService} from "../../fb/firebase.service";
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit {
-  loggedIn$: any
-  logout(){}
+export class NavComponent {
 
-
-  constructor(private firebaseService: FirebaseService) {
-    this.logout = firebaseService.logout
-
+  authObserve$
+  logout() {
+    this.firebaseService.logout()
   }
 
-  ngOnInit(): void {
-    this.loggedIn$ = this.firebaseService.loggedIn$
+  constructor(private firebaseService: FirebaseService) {
+    this.authObserve$ = this.firebaseService.authObserve$
   }
 
   test() {
-
+    console.log(this.firebaseService.auth.currentUser)
   }
 
 

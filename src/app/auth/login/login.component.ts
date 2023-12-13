@@ -4,7 +4,7 @@ import {FirebaseService} from "../../fb/firebase.service";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {authError} from "../registration/registration.component";
 import firebase from "firebase/compat";
-import auth = firebase.auth;
+
 
 @Component({
   selector: 'app-login',

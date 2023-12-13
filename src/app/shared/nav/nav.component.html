@@ -5,7 +5,7 @@
     <button mat-raised-button color="primary">Заказы</button>
     <button mat-raised-button color="primary">Работы</button>
   </div>
-  <div *ngIf="loggedIn$; else notAuth">
+  <div *ngIf="authObserve$ | async; else notAuth">
     <button mat-raised-button>ClientInfo</button>
     <button mat-raised-button color="warn" (click)="logout()" >Выйти</button>
   </div>

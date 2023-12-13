@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {FirebaseService} from "../../fb/firebase.service";
 import {createUserWithEmailAndPassword} from "firebase/auth";
@@ -18,7 +18,6 @@ export class RegistrationComponent {
   error: authError | undefined
 
 
-
   regNewUser(email: string, password: string) {
     createUserWithEmailAndPassword(this.fireBaseService.auth, email, password)
       .then((userCredential) => {
@@ -35,9 +34,6 @@ export class RegistrationComponent {
           code: errorCode,
           message: errorMessage
         }
-
-
-        // ..
       });
   }
 
