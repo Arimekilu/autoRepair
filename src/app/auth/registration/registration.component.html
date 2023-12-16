@@ -9,10 +9,13 @@
 
   <mat-form-field class="example-full-width">
     <mat-label>Введите пароль</mat-label>
-    <input matInput placeholder="Password" type="password" formControlName="password" >
+    <input matInput placeholder="Password" type="password" formControlName="password">
   </mat-form-field>
 
+
+<!--TODO  Добавить переадресацию при регистрации-->
   <button mat-raised-button [disabled]="regForm.invalid" (click)="submit($event)">Регистрация</button>
+
 </form>
 
 <div *ngIf="error" class="error">

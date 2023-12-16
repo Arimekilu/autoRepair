@@ -3,6 +3,7 @@
     <button mat-raised-button color="primary">Добавить клиента</button>
     <button mat-raised-button color="primary">Клиенты</button>
     <button mat-raised-button color="primary">Заказы</button>
+    <button mat-raised-button color="primary" routerLink="createJob">Добавить работу</button>
     <button mat-raised-button color="primary">Работы</button>
   </div>
   <div *ngIf="authObserve$ | async; else notAuth">
@@ -12,9 +13,8 @@
 
   <ng-template #notAuth>
     <div>
-      <button mat-raised-button color="primary">Вход</button>
-      <button mat-raised-button color="primary">Регистрация</button>
+      <button mat-raised-button color="primary" routerLink="login">Вход</button>
+      <button mat-raised-button color="primary" routerLink="registration">Регистрация</button>
     </div>
   </ng-template>
-  <button mat-raised-button (click)="test()">Test</button>
 </nav>

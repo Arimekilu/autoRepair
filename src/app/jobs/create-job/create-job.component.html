@@ -1,0 +1,22 @@
+<form class="container" [formGroup]="createJobForm">
+  <h3>Добавление работ</h3>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Описание</mat-label>
+    <input matInput placeholder="Описание" type="text" formControlName="overview">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Стоимость</mat-label>
+    <input matInput placeholder="Стоимость" type="number" formControlName="price">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Комментарий</mat-label>
+    <input matInput placeholder="Комментарий" type="text" formControlName="comment">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="submit($event)" [disabled]="createJobForm.invalid">Добавить
+    работу
+  </button>
+</form>

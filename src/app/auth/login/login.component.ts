@@ -3,7 +3,6 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {FirebaseService} from "../../fb/firebase.service";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {authError} from "../registration/registration.component";
-import firebase from "firebase/compat";
 
 
 @Component({
@@ -15,6 +14,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   error: authError | undefined
 
+  //TODO Перенести логику в сервис
   login(email: string, password: string) {
     signInWithEmailAndPassword(this.fireBaseService.auth, email, password)
       .then((userCredential) => {

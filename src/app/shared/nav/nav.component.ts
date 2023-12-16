@@ -17,9 +17,4 @@ export class NavComponent {
     this.authObserve$ = this.firebaseService.authObserve$
   }
 
-  test() {
-    console.log(this.firebaseService.auth.currentUser)
-  }
-
-
 }
