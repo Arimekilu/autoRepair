@@ -13,6 +13,11 @@ import { CreateJobComponent } from './jobs/create-job/create-job.component';
 import { JobComponent } from './jobs/job/job.component';
 import { AllJobsComponent } from './jobs/all-jobs/all-jobs.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { CreateClientComponent } from './clients/components/create-client/create-client.component';
+import { ClientComponent } from './clients/components/client/client.component';
+import { AllClientsComponent } from './clients/components/all-clients/all-clients.component';
+import { CreateCarComponent } from './clients/components/car/create-car/create-car.component';
+import { CarComponent } from './clients/components/car/car/car.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +27,12 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     LoginComponent,
     CreateJobComponent,
     JobComponent,
-    AllJobsComponent
+    AllJobsComponent,
+    CreateClientComponent,
+    ClientComponent,
+    AllClientsComponent,
+    CreateCarComponent,
+    CarComponent
   ],
   imports: [
     BrowserModule,
