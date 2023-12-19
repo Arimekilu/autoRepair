@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {IJob} from "./interfaces";
 import {FirebaseService} from "../fb/firebase.service";
 import {map, Observable} from "rxjs";
@@ -8,7 +8,7 @@ import {map, Observable} from "rxjs";
 
 export class JobsService {
 
-  public get allJobs$ () {
+  public get allJobs$() {
     return this.getAllJobs()
   }
 
@@ -19,9 +19,9 @@ export class JobsService {
     return this.http.post<IJob>(`${this.firebaseService.firebaseConfig.databaseURL}/jobs.json`, job)
   }
 
- deleteJob (job: IJob) {
-  return this.http.delete(`${this.firebaseService.firebaseConfig.databaseURL}/jobs/${job.id}.json`,)
- }
+  deleteJob(job: IJob) {
+    return this.http.delete(`${this.firebaseService.firebaseConfig.databaseURL}/jobs/${job.id}.json`,)
+  }
 
   private getAllJobs(): Observable<IJob[]> {
     return this.http.get(`${this.firebaseService.firebaseConfig.databaseURL}/jobs.json`).pipe(

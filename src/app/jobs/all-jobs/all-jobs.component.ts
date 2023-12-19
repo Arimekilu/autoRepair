@@ -17,7 +17,6 @@ export class AllJobsComponent implements OnInit {
 
   ngOnInit(): void {
     this.jobs$ = this.jobsService.allJobs$
-    this.jobs$.subscribe(res => console.log(res))
   }
 
 

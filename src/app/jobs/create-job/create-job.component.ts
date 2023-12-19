@@ -33,7 +33,7 @@ export class CreateJobComponent implements OnInit {
     $event.preventDefault()
     const job: IJob = this.createJobForm.value
     this.jobService.createJob(job).subscribe((res) => {
-        console.log('Sucsess', res)
+        console.log('Success', res)
         this.createJobForm.reset()
         this.done = true
       },

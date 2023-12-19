@@ -20,6 +20,7 @@ import {CreateCarComponent} from './clients/components/car/create-car/create-car
 import {CarComponent} from './clients/components/car/car/car.component';
 import {JobsService} from "./jobs/jobs.service";
 import { HomePageComponent } from './home-page/home-page.component';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -45,6 +46,8 @@ import { HomePageComponent } from './home-page/home-page.component';
     MatInputModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatIconModule,
+
 
   ],
   providers: [HttpClient, HttpClientModule, JobsService],

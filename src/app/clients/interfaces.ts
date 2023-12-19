@@ -2,9 +2,9 @@ import {IJob} from "../jobs/interfaces";
 
 export interface IClient {
   name: string,
-  phone: number,
+  phone: string,
   comment?: string
-  car?: ICar,
+  cars?: ICar[],
   orders?: IOrder[],
   id?: string
 }

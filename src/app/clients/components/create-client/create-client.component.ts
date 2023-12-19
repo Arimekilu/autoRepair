@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {ClientsService} from "../../services/clients.service";
+import {ICar} from "../../interfaces";
 
 @Component({
   selector: 'app-create-client',
@@ -7,18 +9,49 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./create-client.component.scss']
 })
 export class CreateClientComponent {
-
+  createCar: boolean = false
   createClientForm: FormGroup
+  doneClient: boolean = false;
+  doneCar: boolean = false;
+  error: undefined | {
+    code: string,
+    message: string
+  }
+  car: ICar[] = []
 
-  constructor(private formBuilder: FormBuilder) {
+
+  addCar(car: ICar) {
+    this.car.push(car)
+    this.doneCar = true
+    this.createCar = false
+  }
+
+  constructor(private formBuilder: FormBuilder, private clientService: ClientsService) {
     this.createClientForm = this.formBuilder.group({
       name: new FormControl(null, [Validators.required]),
-      phone: new FormControl(null, [Validators.required, Validators.minLength(10)]),
+      phone: new FormControl('+7', [Validators.required, Validators.minLength(10)]),
       comment: new FormControl(null)
     })
   }
 
   createClient($event: MouseEvent) {
     $event.preventDefault()
+    const client = this.createClientForm.value
+    if (this.car) {
+      client.car = this.car
+    }
+    this.clientService.setClient(client).subscribe(
+      (res) => {
+        console.log('Клиент создан:', res)
+        this.doneClient = true
+        this.createClientForm.reset()
+      },
+      (error) => {
+        this.error = {
+          code: error.code,
+          message: error.message
+        }
+      }
+    )
   }
 }

@@ -1,4 +1,4 @@
-<form class="container" [formGroup]="createCarForm">
+<form class='createCarForm' [formGroup]="createCarForm">
 
   <mat-form-field class="example-full-width">
     <mat-label>Марка</mat-label>
@@ -35,8 +35,12 @@
     <input matInput placeholder="Введите комментарии" type="text" formControlName="comment">
   </mat-form-field>
 
-  <button mat-raised-button color="primary" [disabled]="createCarForm.invalid">Добавить автомобиль
+  <button mat-raised-button color="primary" [disabled]="createCarForm.invalid" (click)="createCar()">Добавить автомобиль
   </button>
 
+  <div class="success" *ngIf="done">
+    <p>Автомобиль добавлен</p>
+    <button mat-raised-button (click)="done = false">Ок</button>
+  </div>
 
 </form>

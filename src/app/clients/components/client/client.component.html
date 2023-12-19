@@ -1,1 +1,30 @@
-<p>client works!</p>
+<div *ngIf="client">
+  <div>
+    <h3>{{client.name}}</h3>
+    <p>{{client.phone}}</p>
+    <p *ngIf="client.comment">{{client.comment}}</p>
+    <div *ngFor="let car of client.cars">
+      <p>{{car.mark}} {{car.model}} {{car.year}}</p>
+      <p>{{car.vin}}</p>
+      <p>{{car.mileAge}}</p>
+    </div>
+  </div>
+
+
+</div>
+
+name: string,
+phone: string,
+comment?: string
+car?: ICar[],
+orders?: IOrder[],
+id?: string
+
+mark: string,
+model: string,
+vin: string,
+mileAge: number,
+year: number,
+number: string,
+id?: string,
+comment?: string

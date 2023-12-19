@@ -42,3 +42,13 @@ body {
   margin: 20px auto;
   background: rgba(141, 252, 133, 0.24);
 }
+
+.textBlock {
+  line-height: normal;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.comment {
+  font-style: italic;
+}

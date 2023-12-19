@@ -1,6 +1,14 @@
-<div *ngIf="job">
- <div> <p>{{job.overview}} <span>{{job.price}}₽</span></p>
-  <p>{{job.comment}}</p>
- </div>
-  <button mat-raised-button color="warn" (click)="delete(job)">Удалить</button>
+<div *ngIf="job" class="job">
+
+  <div class="textBlock">
+    <p>{{job.overview}} <span>{{job.price}}₽</span></p>
+    <div *ngIf="job.comment" class="comment">
+      <p>{{job.comment}}</p>
+    </div>
+  </div>
+
+  <button mat-fab color="warn" aria-label="Example icon button with a delete icon" (click)="delete(job)">
+    <mat-icon>delete</mat-icon>
+  </button>
+
 </div>

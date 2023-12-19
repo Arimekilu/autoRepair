@@ -1,14 +1,20 @@
 <nav>
-  <div>
+  <div *ngIf="authObserve$ | async; else noNavigate">
     <button mat-raised-button color="primary" routerLink="createClient">Добавить клиента</button>
     <button mat-raised-button color="primary">Клиенты</button>
     <button mat-raised-button color="primary">Заказы</button>
     <button mat-raised-button color="primary" routerLink="createJob">Добавить работу</button>
     <button mat-raised-button color="primary" routerLink="jobs">Работы</button>
   </div>
+  <ng-template #noNavigate>
+    <div>
+
+    </div>
+  </ng-template>
+
   <div *ngIf="authObserve$ | async; else notAuth">
     <button mat-raised-button>ClientInfo</button>
-    <button mat-raised-button color="warn" (click)="logout()" >Выйти</button>
+    <button mat-raised-button color="warn" (click)="logout()">Выйти</button>
   </div>
 
   <ng-template #notAuth>

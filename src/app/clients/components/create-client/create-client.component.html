@@ -8,7 +8,7 @@
 
   <mat-form-field class="example-full-width">
     <mat-label>Телефон</mat-label>
-    <input matInput placeholder="Введите телефон клиента" type="text" formControlName="phone">
+    <input matInput placeholder="Введите телефон клиента" type="text" formControlName="phone" value="+7">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
@@ -16,9 +16,28 @@
     <input matInput placeholder="Введите комментарии" type="text" formControlName="comment">
   </mat-form-field>
 
-  <app-create-car></app-create-car>
+  <button mat-raised-button (click)="createCar = !createCar">Добавить автомобиль
+    <span *ngIf="!createCar">&#709;</span>
+    <span *ngIf="createCar">&#708;</span>
+  </button>
+  <app-create-car *ngIf="createCar" (newCarEvent)="addCar($event)"></app-create-car>
 
-  <button mat-raised-button color="primary">Создать клиента
+  <div class="success" *ngIf="doneCar">
+    <p>Автомобиль добавлен {{car[(car.length - 1)].mark}} {{car[(car.length - 1)].model}}</p>
+    <button mat-raised-button (click)="doneCar = false; createCar = false">Ок</button>
+  </div>
+
+  <button mat-raised-button color="primary" [disabled]="createClientForm.invalid" (click)="createClient($event)">Создать клиента
   </button>
 
 </form>
+
+<div class="success" *ngIf="doneClient">
+  <p>Клиент создан</p>
+  <button mat-raised-button (click)="doneClient = false">Ок</button>
+</div>
+
+<div class="error" *ngIf="error">
+  <p>{{error.code}}</p>
+  <p>{{error.message}}</p>
+</div>

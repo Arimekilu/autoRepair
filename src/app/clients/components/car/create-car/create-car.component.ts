@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {ICar} from "../../../interfaces";
 
 @Component({
   selector: 'app-create-car',
@@ -7,7 +8,15 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./create-car.component.scss']
 })
 export class CreateCarComponent {
+
+  @Output() newCarEvent  = new EventEmitter<ICar>();
+  newCarAdd(model: ICar){
+    this.newCarEvent.emit(model);
+  }
+
   createCarForm: FormGroup;
+  car: ICar | undefined
+  done: boolean = false
 
   constructor(private formBuilder: FormBuilder) {
     this.createCarForm = this.formBuilder.group({
@@ -21,4 +30,8 @@ export class CreateCarComponent {
     })
   }
 
+  createCar() {
+    const car: ICar = this.createCarForm.value
+    this.newCarAdd(car)
+  }
 }
