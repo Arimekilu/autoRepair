@@ -1,4 +1,6 @@
 <div *ngIf="job">
-  <p>{{job.overview}} <span>{{job.price}}₽</span></p>
+ <div> <p>{{job.overview}} <span>{{job.price}}₽</span></p>
   <p>{{job.comment}}</p>
+ </div>
+  <button mat-raised-button color="warn" (click)="delete(job)">Удалить</button>
 </div>

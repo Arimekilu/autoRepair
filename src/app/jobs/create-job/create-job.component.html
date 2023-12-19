@@ -1,4 +1,4 @@
-<form class="container" [formGroup]="createJobForm">
+<form class="container" [formGroup]="createJobForm" (click)="done = false">
   <h3>Добавление работ</h3>
 
   <mat-form-field class="example-full-width">
@@ -19,4 +19,10 @@
   <button mat-raised-button color="primary" (click)="submit($event)" [disabled]="createJobForm.invalid">Добавить
     работу
   </button>
+
 </form>
+
+<div class="success" *ngIf="done">
+  <p>Работа добавлена</p>
+  <button mat-raised-button (click)="done = false">Ок</button>
+</div>

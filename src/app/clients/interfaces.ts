@@ -15,8 +15,9 @@ export interface ICar {
   vin: string,
   mileAge: number,
   year: number,
-  id?: string
-
+  number: string,
+  id?: string,
+  comment?: string
 }
 
 export interface IOrder {

@@ -15,6 +15,7 @@ import {JobsService} from "../jobs.service";
 export class CreateJobComponent implements OnInit {
 
   createJobForm: FormGroup
+  done: boolean = false
 
   constructor(private formBuilder: FormBuilder, private jobService: JobsService, private firebaseService: FirebaseService) {
     this.createJobForm = this.formBuilder.group({
@@ -25,23 +26,21 @@ export class CreateJobComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.jobService.getAllData().subscribe((res) => {
-      console.log(res)
-    })
   }
 
 
   submit($event: MouseEvent) {
     $event.preventDefault()
-      const job: IJob = this.createJobForm.value
-      this.jobService.createJob(job).subscribe((res) => {
-          console.log('Sucsess', res)
-        },
-        (error) => {
-          console.log(error)
-        })
-    }
-
+    const job: IJob = this.createJobForm.value
+    this.jobService.createJob(job).subscribe((res) => {
+        console.log('Sucsess', res)
+        this.createJobForm.reset()
+        this.done = true
+      },
+      (error) => {
+        console.log(error)
+      })
+  }
 
 
 }

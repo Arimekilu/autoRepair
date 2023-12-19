@@ -1,1 +1,5 @@
-<p>all-jobs works!</p>
+<div>
+<div *ngFor="let job of jobs$ | async">
+<app-job [job]="job"></app-job>
+</div>
+</div>

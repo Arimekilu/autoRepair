@@ -1,4 +1,24 @@
-<form class="container">
+<form class="container" [formGroup]="createClientForm">
   <h3>Создать клиента</h3>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>ФИО</mat-label>
+    <input matInput placeholder="Введите ФИО клиента" type="text" formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Телефон</mat-label>
+    <input matInput placeholder="Введите телефон клиента" type="text" formControlName="phone">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Комментарии</mat-label>
+    <input matInput placeholder="Введите комментарии" type="text" formControlName="comment">
+  </mat-form-field>
+
+  <app-create-car></app-create-car>
+
+  <button mat-raised-button color="primary">Создать клиента
+  </button>
 
 </form>

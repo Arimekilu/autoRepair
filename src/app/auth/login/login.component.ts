@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {FirebaseService} from "../../fb/firebase.service";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {authError} from "../registration/registration.component";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -34,7 +35,7 @@ export class LoginComponent {
       });
   }
 
-  constructor(private formBuilder: FormBuilder, private fireBaseService: FirebaseService) {
+  constructor(private formBuilder: FormBuilder, private fireBaseService: FirebaseService, private router: Router) {
     this.loginForm = this.formBuilder.group({
         email: new FormControl(null, [Validators.required, Validators.email]),
         password: new FormControl(null, [Validators.required, Validators.minLength(6)])
@@ -49,6 +50,6 @@ export class LoginComponent {
     }
     const user = this.loginForm.value
     this.login(user.email, user.password)
-
+    this.router.navigate([''])
   }
 }

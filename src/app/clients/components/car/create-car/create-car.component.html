@@ -1,1 +1,42 @@
-<p>create-car works!</p>
+<form class="container" [formGroup]="createCarForm">
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Марка</mat-label>
+    <input matInput placeholder="Выберите марку" type="text" formControlName="mark">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Модель</mat-label>
+    <input matInput placeholder="Выберите модель" type="text" formControlName="model">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>VIN</mat-label>
+    <input matInput placeholder="Введите VIN" type="text" formControlName="vin">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Госномер</mat-label>
+    <input matInput placeholder="Введите госномер" type="text" formControlName="number">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Пробег</mat-label>
+    <input matInput placeholder="Укажите пробег" type="text" formControlName="mileage">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Год выпуска</mat-label>
+    <input matInput placeholder="Укажите год выпуска" type="text" formControlName="year">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Комментарии</mat-label>
+    <input matInput placeholder="Введите комментарии" type="text" formControlName="comment">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" [disabled]="createCarForm.invalid">Добавить автомобиль
+  </button>
+
+
+</form>

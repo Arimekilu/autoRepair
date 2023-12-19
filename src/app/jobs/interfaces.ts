@@ -1,5 +1,6 @@
 export interface IJob {
   overview: string,
   price: number,
-  comment?: string
+  comment?: string,
+  id?: string
 }

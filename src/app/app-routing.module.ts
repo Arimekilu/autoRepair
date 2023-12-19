@@ -3,11 +3,17 @@ import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from "./auth/login/login.component";
 import {RegistrationComponent} from "./auth/registration/registration.component";
 import {CreateJobComponent} from "./jobs/create-job/create-job.component";
+import {CreateClientComponent} from "./clients/components/create-client/create-client.component";
+import {AllJobsComponent} from "./jobs/all-jobs/all-jobs.component";
+import {HomePageComponent} from "./home-page/home-page.component";
 
 const routes: Routes = [
+  {path: '', component: HomePageComponent, pathMatch: "full"},
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
-  {path: 'createJob', component: CreateJobComponent}
+  {path: 'createJob', component: CreateJobComponent},
+  {path: 'createClient', component: CreateClientComponent},
+  {path: 'jobs', component: AllJobsComponent}
 ];
 
 @NgModule({

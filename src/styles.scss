@@ -1,7 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .container {
   display: flex;
@@ -13,6 +19,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-radius: 20px;
   box-shadow: 1px 1px 3px #4d2be2;
   padding: 20px;
+
+  button {
+    margin: 10px
+  }
 }
 
 .error {
@@ -22,4 +32,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding: 20px;
   margin: 20px auto;
   background: rgba(226, 43, 43, 0.24);
+}
+
+.success {
+  width: 30%;
+  border-radius: 20px;
+  box-shadow: 1px 1px 3px #7bff7d;
+  padding: 20px;
+  margin: 20px auto;
+  background: rgba(141, 252, 133, 0.24);
 }
