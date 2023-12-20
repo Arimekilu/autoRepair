@@ -1,1 +1,3 @@
-<p>all-clients works!</p>
+<div *ngFor="let client of clients$ | async">
+  <app-client [client]="client"></app-client>
+</div>

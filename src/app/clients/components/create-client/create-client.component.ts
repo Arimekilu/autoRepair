@@ -37,8 +37,11 @@ export class CreateClientComponent {
   createClient($event: MouseEvent) {
     $event.preventDefault()
     const client = this.createClientForm.value
-    if (this.car) {
-      client.car = this.car
+    client.orders = []
+    if (this.car.length >= 1) {
+      client.cars = this.car
+    } else {
+      client.cars = []
     }
     this.clientService.setClient(client).subscribe(
       (res) => {

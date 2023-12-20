@@ -1,5 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {IClient} from "../../interfaces";
+import {ClientsService} from "../../services/clients.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-client',
@@ -9,5 +11,15 @@ import {IClient} from "../../interfaces";
 export class ClientComponent {
   @Input() client: IClient | undefined
 
-
+constructor(private clientsService: ClientsService) {
+}
+  delete (client: IClient) {
+    this.clientsService.deleteClient(client).subscribe(
+      (res) => {
+        console.log('Клиент удален', res)},
+      (error) => {
+        console.log(error)
+      }
+    )
+  }
 }

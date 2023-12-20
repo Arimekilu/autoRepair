@@ -1,0 +1,13 @@
+<div *ngIf="client">
+
+  <div *ngFor="let car of client?.cars">
+    <div (click)="order?.car = car">
+      <p>
+        <span>{{car.mark}}</span>
+        <span>{{car.model}}</span>
+        <span>{{car.year}}</span>
+      </p>
+    </div>
+  </div>
+
+</div>

@@ -1,1 +1,19 @@
-<p>car works!</p>
+<div *ngIf="car">
+<div (click)="fullView = true"
+     *ngIf="!fullView; else closeFullView">
+  {{car.mark}} {{car.model}}
+  <strong>Открыть полное описание</strong>
+</div>
+<ng-template #closeFullView>
+  <div (click)="fullView = false">{{car.mark}} {{car.model}} <strong>Закрыть полное описание</strong></div>
+</ng-template>
+  <hr>
+<div *ngIf="fullView" class="shadow">
+  <p><span>Марка:{{car.mark}}</span> {{ ' ' }}<span>Модель:{{car.model}}</span></p>
+  <p><span>Год выпуска:{{car.year}}</span></p>
+  <p>VIN:{{car.vin}}</p>
+  <p>Пробег:{{car.mileAge}}км.</p>
+  <p>Госномер:{{car.number}}</p>
+  <p>Комментарии:{{car.comment}}</p>
+</div>
+</div>

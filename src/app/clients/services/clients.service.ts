@@ -29,7 +29,10 @@ export class ClientsService {
         }));
       })
     );
+  }
 
+  deleteClient (client: IClient) {
+    return this.http.delete(`${this.firebaseService.firebaseConfig.databaseURL}/clients/${client.id}.json`,)
   }
 
 }

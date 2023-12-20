@@ -21,6 +21,8 @@ import {CarComponent} from './clients/components/car/car/car.component';
 import {JobsService} from "./jobs/jobs.service";
 import { HomePageComponent } from './home-page/home-page.component';
 import {MatIconModule} from "@angular/material/icon";
+import { CreateOrderComponent } from './orders/components/create-order/create-order.component';
+import { OrderComponent } from './orders/components/order/order.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import {MatIconModule} from "@angular/material/icon";
     AllClientsComponent,
     CreateCarComponent,
     CarComponent,
-    HomePageComponent
+    HomePageComponent,
+    CreateOrderComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,

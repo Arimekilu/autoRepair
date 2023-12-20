@@ -1,30 +1,35 @@
-<div *ngIf="client">
+<div *ngIf="client" class="card">
   <div>
     <h3>{{client.name}}</h3>
-    <p>{{client.phone}}</p>
+    <p>ФИО:{{client.name}}</p>
+    <p>Телефон:{{client.phone}}</p>
     <p *ngIf="client.comment">{{client.comment}}</p>
+
     <div *ngFor="let car of client.cars">
-      <p>{{car.mark}} {{car.model}} {{car.year}}</p>
-      <p>{{car.vin}}</p>
-      <p>{{car.mileAge}}</p>
+      <app-car [car]="car"></app-car>
+    </div>
+
+    <p>Всего заказ-нарядов {{client.orders ? client.orders.length : 0}}</p>
+    <div *ngFor="let order of client.orders" class="shadow">
+      <p>{{order.date}}</p>
+      <p>{{order.car.mark}} {{order.car.model}} {{order.car.year}} {{order.car.number}}</p>
+      <p>{{order.car.vin}}</p>
+      <p>{{order.car.mileAge}}</p>
+      <div>
+        <div *ngFor="let job of order.jobs; index as idx">
+          <small>{{idx + 1}}</small>
+          <p>{{job.overview}} <span>{{job.price}}</span></p>
+          <p>{{job.comment}}</p>
+        </div>
+      </div>
+
     </div>
   </div>
-
-
+  <button mat-fab color="warn" aria-label="Example icon button with a delete icon" (click)="delete(client)">
+    <mat-icon>delete</mat-icon>
+  </button>
 </div>
 
-name: string,
-phone: string,
-comment?: string
-car?: ICar[],
-orders?: IOrder[],
-id?: string
 
-mark: string,
-model: string,
-vin: string,
-mileAge: number,
-year: number,
-number: string,
-id?: string,
-comment?: string
+
+
