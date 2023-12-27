@@ -1,7 +1,7 @@
-<mat-spinner *ngIf="loading; else loaded"></mat-spinner>
+<mat-spinner *ngIf="loading; else loaded" class="loader"></mat-spinner>
 
-<ng-template #loaded>
-  <div *ngIf="!client">
+<ng-template #loaded class="container">
+  <div *ngIf="!client" class="card">
     <form class="example-form">
       <mat-form-field class="example-full-width">
         <mat-label>Выберите клиента</mat-label>
@@ -21,23 +21,25 @@
     <button mat-raised-button (click)="selectClient($event)">Добавить</button>
   </div>
 
-  <div *ngIf="client" class="card">
+  <div *ngIf="client" class="card fs15">
     <h3>{{client.name}}</h3>
     <p>{{client.phone}}</p>
     <p> {{client.comment}}</p>
-    <div *ngFor="let car of client?.cars" class="card">
-      <div>
-        <p>{{car.mark}} <span>{{car.model}}</span></p>
-        <p>{{car.year}} <span>{{car.number}}</span></p>
-        <p>{{car.vin}}</p>
-        <p>{{car.mileAge}}км</p>
-        <p>{{car.comment}}</p>
-        <button mat-raised-button (click)="selectCar($event, car)">Добавить</button>
+    <div style="display: flex; flex-direction: row">
+      <div *ngFor="let car of client?.cars" class="card fs07">
+        <div>
+          <p>{{car.mark}} <span>{{car.model}}</span></p>
+          <p>{{car.year}} <span>{{car.number}}</span></p>
+          <p>{{car.vin}}</p>
+          <p>{{car.mileAge}}км</p>
+          <small>{{car.comment}}</small>
+          <button mat-raised-button (click)="selectCar($event, car)">Выбрать</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <div style="display: flex">
+  <div class="card">
     <form class="example-form">
       <mat-form-field class="example-full-width">
         <mat-label>Добавьте работы</mat-label>
@@ -57,16 +59,16 @@
     <button mat-raised-button (click)="addJob($event)">Добавить</button>
   </div>
 
-  <div *ngIf="jobsToOrder.length > 0">
+  <div *ngIf="jobsToOrder.length > 0" class="card">
     Выбранные работы:
-    <hr>
-    <div *ngFor="let job of jobsToOrder">
+
+    <div *ngFor="let job of jobsToOrder" class="card">
       <p>{{job.overview}} <span>{{job.price}}</span></p>
       <p>{{job.comment}}</p>
     </div>
   </div>
 
-  <form class="example-form">
+  <form class="example-form card">
     <mat-form-field class="example-full-width">
       <mat-label>Текущий пробег</mat-label>
       <input matInput placeholder="Текущий пробег" [formControl]="nowMileageControl">

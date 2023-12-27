@@ -2,6 +2,9 @@
 
 html, body {
   height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -10,11 +13,10 @@ body {
 }
 
 .container {
+  width: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   text-align: center;
-  max-width: 30%;
   margin: 20px auto;
   border-radius: 20px;
   box-shadow: 1px 1px 3px #4d2be2;
@@ -54,15 +56,27 @@ body {
 }
 
 .card {
-    display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 1.3rem;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   box-shadow: 1px 1px 3px #2f6fff;
   border-radius: 20px;
-  padding: 10px;
+  padding: 20px;
   vertical-align: center;
   margin: 20px auto;
+  button {
+    min-width: 60px;
+    max-width: 200px;
+  }
+}
+
+.fs15 {
+  font-size: 1.5rem;
+}
+
+.fs07 {
+  font-size: 0.7rem;
 }
 
 
@@ -71,4 +85,9 @@ body {
   border-radius: 20px;
   margin: 10px;
   padding: 10px;
+}
+
+.loader {
+  margin: 1.3rem auto;
+  width: 50%;
 }

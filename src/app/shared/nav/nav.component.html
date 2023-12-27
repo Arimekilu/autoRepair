@@ -2,8 +2,7 @@
   <div *ngIf="authObserve$ | async; else noNavigate">
     <button mat-raised-button color="primary" routerLink="createClient">Добавить клиента</button>
     <button mat-raised-button color="primary" routerLink="clients">Клиенты</button>
-    <button mat-raised-button color="primary">Заказы</button>
-    <button mat-raised-button color="primary" routerLink="createOrder">Создать заказ</button>
+    <button mat-raised-button color="primary" routerLink="createOrder">Добавить заказ-наряд</button>
     <button mat-raised-button color="primary" routerLink="createJob">Добавить работу</button>
     <button mat-raised-button color="primary" routerLink="jobs">Работы</button>
   </div>
