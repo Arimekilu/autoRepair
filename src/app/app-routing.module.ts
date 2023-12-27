@@ -7,6 +7,7 @@ import {CreateClientComponent} from "./clients/components/create-client/create-c
 import {AllJobsComponent} from "./jobs/all-jobs/all-jobs.component";
 import {HomePageComponent} from "./home-page/home-page.component";
 import {AllClientsComponent} from "./clients/components/all-clients/all-clients.component";
+import {CreateOrderComponent} from "./orders/components/create-order/create-order.component";
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, pathMatch: "full"},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'createJob', component: CreateJobComponent},
   {path: 'createClient', component: CreateClientComponent},
   {path: 'jobs', component: AllJobsComponent},
-  {path: 'clients', component: AllClientsComponent}
+  {path: 'clients', component: AllClientsComponent},
+  {path: 'createOrder', component: CreateOrderComponent}
 ];
 
 @NgModule({

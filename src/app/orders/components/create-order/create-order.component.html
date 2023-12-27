@@ -1,13 +1,60 @@
-<div *ngIf="client">
+<mat-spinner *ngIf="loading; else loaded"></mat-spinner>
 
-  <div *ngFor="let car of client?.cars">
-    <div (click)="order?.car = car">
-      <p>
-        <span>{{car.mark}}</span>
-        <span>{{car.model}}</span>
-        <span>{{car.year}}</span>
-      </p>
+<ng-template #loaded>
+  <div *ngIf="!client">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Выберите клиента</mat-label>
+        <input type="text"
+               placeholder="Выберите клиента"
+               aria-label="Выберите клиента"
+               matInput
+               [formControl]="selectClientControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    <button mat-raised-button (click)="selectClient($event)">Добавить</button>
+  </div>
+
+  <div *ngIf="client" class="card">
+    <h3>{{client.name}}</h3>
+    <p>{{client.phone}}</p>
+    <p> {{client.comment}}</p>
+    <div *ngFor="let car of client?.cars" class="card">
+      <div>
+        <p>{{car.mark}} <span>{{car.model}}</span></p>
+        <p>{{car.year}} <span>{{car.number}}</span></p>
+        <p>{{car.vin}}</p>
+        <p>{{car.mileAge}}км</p>
+        <p>{{car.comment}}</p>
+        <button mat-raised-button (click)="selectCar($event, car)">Добавить</button>
+      </div>
     </div>
   </div>
 
-</div>
+  <div style="display: flex">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Добавьте работы</mat-label>
+        <input type="text"
+               placeholder="Добавьте работы"
+               aria-label="Добавьте работы"
+               matInput
+               [formControl]="selectJob"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredJobs | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    <button mat-raised-button (click)="addJob($event)">Добавить</button>
+  </div>
+
+</ng-template>

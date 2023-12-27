@@ -37,7 +37,7 @@ export class FirebaseService {
     this.app = initializeApp(firebaseConfig)
     this.auth = getAuth();
     this.loggedIn$ = authState(this.auth).subscribe(user => {
-      console.log(user, ' will be null if logged out');
+      // console.log(user, ' will be null if logged out');
     });
     this.authObserve$ = authState(this.auth)
 

@@ -23,6 +23,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 import {MatIconModule} from "@angular/material/icon";
 import { CreateOrderComponent } from './orders/components/create-order/create-order.component';
 import { OrderComponent } from './orders/components/order/order.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -42,18 +44,20 @@ import { OrderComponent } from './orders/components/order/order.component';
     CreateOrderComponent,
     OrderComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatIconModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatIconModule,
+        MatAutocompleteModule,
+        MatProgressSpinnerModule,
 
 
-  ],
+    ],
   providers: [HttpClient, HttpClientModule, JobsService],
   bootstrap: [AppComponent]
 })
