@@ -45,7 +45,7 @@
                placeholder="Добавьте работы"
                aria-label="Добавьте работы"
                matInput
-               [formControl]="selectJob"
+               [formControl]="selectJobControl"
                [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let option of filteredJobs | async" [value]="option">
@@ -56,5 +56,21 @@
     </form>
     <button mat-raised-button (click)="addJob($event)">Добавить</button>
   </div>
+
+  <div *ngIf="jobsToOrder.length > 0">
+    Выбранные работы:
+    <hr>
+    <div *ngFor="let job of jobsToOrder">
+      <p>{{job.overview}} <span>{{job.price}}</span></p>
+      <p>{{job.comment}}</p>
+    </div>
+  </div>
+
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Текущий пробег</mat-label>
+      <input matInput placeholder="Текущий пробег" [formControl]="nowMileageControl">
+    </mat-form-field>
+  </form>
 
 </ng-template>

@@ -4,7 +4,7 @@ import {OrderService} from "../../order.service";
 import {map, Observable, startWith} from "rxjs";
 import {IJob} from "../../../jobs/interfaces";
 import {ICar, IClient, IOrder} from "../../../clients/interfaces";
-import {FormControl} from "@angular/forms";
+import {FormControl, Validators} from "@angular/forms";
 import {ClientsService} from "../../../clients/services/clients.service";
 
 @Component({
@@ -18,15 +18,17 @@ export class CreateOrderComponent implements OnInit {
 
   clients: IClient[] = []
   jobs: IJob[] = []
+  jobsToOrder: IJob[] = []
   selectClientControl = new FormControl('');
   options: string[] = [];
   jobsOptions: string[] = []
   filteredOptions?: Observable<string[]>;
   filteredJobs?: Observable<string[]>;
-  selectJob = new FormControl('');
+  selectJobControl = new FormControl('');
   loading: boolean = true
-  jobsToOrder: IJob[] = []
   selectedCar?: ICar
+  nowMileage?: number
+  nowMileageControl = new FormControl('', [Validators.required]);
 
 
   constructor(private jobService: JobsService, private orderService: OrderService, private clientService: ClientsService) {
@@ -54,7 +56,7 @@ export class CreateOrderComponent implements OnInit {
       map(value => this._filter(value || '')),
     );
 
-    this.filteredJobs = this.selectJob.valueChanges.pipe(
+    this.filteredJobs = this.selectJobControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filterJob(value || '')),
     );
@@ -72,18 +74,41 @@ export class CreateOrderComponent implements OnInit {
 
   addJob($event: MouseEvent) {
     $event.preventDefault()
+
+    const jobOverview = this.selectJobControl.value
+    const selectedJob = this.jobs.find(job => job.overview.toLowerCase() == jobOverview?.toLowerCase())
+    if (selectedJob) {
+      this.jobsToOrder.push(selectedJob)
+    }
+    this.selectJobControl.reset()
   }
 
   selectClient($event: MouseEvent) {
     $event.preventDefault()
     const clientName = this.selectClientControl.value
     this.client = this.clients.find(client => client.name.toLowerCase() == clientName?.toLowerCase())
-
-
   }
 
   selectCar($event: MouseEvent, car: ICar) {
     $event.preventDefault()
     this.selectedCar = car
+  }
+
+  // car: ICar,
+  // jobs: IJob[],
+  // comment?: string,
+  // id?: string,
+  // date: string
+  createOrder($event: MouseEvent) {
+    $event.preventDefault()
+    if (this.client && this.selectedCar && this.jobsToOrder.length > 0) {
+
+      const order: IOrder = {
+        car: this.selectedCar,
+        jobs: this.jobsToOrder,
+        date: (new Date).toString()
+      }
+
+    }
   }
 }

@@ -11,7 +11,9 @@ export class OrderService {
   }
 
   setOrder (order: IOrder, client: IClient) {
-  return this.httpClient.post(`${this.firebaseService.firebaseConfig.databaseURL}/clients/${client.id}/orders.json`, order)
+    const clientForPut: IClient = client
+    client.orders?.push(order)
+  return this.httpClient.put(`${this.firebaseService.firebaseConfig.databaseURL}/clients/${client.id}.json`, clientForPut)
   }
 
 
