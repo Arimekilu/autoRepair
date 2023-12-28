@@ -105,18 +105,20 @@ export class CreateOrderComponent implements OnInit {
     $event.preventDefault()
 
     const orderComment = this.orderCommentControl.value ? this.orderCommentControl.value : ''
-    const nowMileage = this.nowMileage
+    const nowMileage = this.nowMileageControl.value
 
     if (this.client && this.selectedCar && this.jobsToOrder.length > 0 && nowMileage) {
       const order: IOrder = {
         car: this.selectedCar,
         jobs: this.jobsToOrder,
-        mileage: nowMileage,
+        mileage: (+nowMileage || this.selectedCar.mileage),
         date: (new Date).toString(),
         comment: orderComment
       }
+      console.log('Client:', this.client.name)
+      console.log('Car', this.selectedCar.model + ' ' + this.selectedCar.mark)
 
-      this.orderService.setOrder(order, this.client, this.selectedCar, nowMileage )?.subscribe((res) => {
+      this.orderService.setOrder(order, this.client, this.selectedCar, +nowMileage )?.subscribe((res) => {
         console.log(res)
       })
 
