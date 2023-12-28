@@ -2,7 +2,8 @@
   <h3>{{order.date}}</h3>
   <p>{{order.car.mark}}</p>
   <p>{{order.car.model}}</p>
-  <p>{{order.car.mileAge}}</p>
+  <p>Пробег автомобиля:{{order.car.mileage}}км</p>
+  <p>Пробег на момент заказ-наряда:{{order.mileage}}км</p>
   <div *ngFor="let job of order.jobs">
     <p>{{job.overview}} <span>{{job.price}}</span></p>
     <p>{{job.comment}}</p>

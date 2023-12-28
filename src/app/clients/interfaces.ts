@@ -13,7 +13,7 @@ export interface ICar {
   mark: string,
   model: string,
   vin: string,
-  mileAge: number,
+  mileage: number,
   year: number,
   number: string,
   id?: string,
@@ -22,6 +22,7 @@ export interface ICar {
 
 export interface IOrder {
   car: ICar,
+  mileage: number,
   jobs: IJob[],
   comment?: string,
   id?: string,

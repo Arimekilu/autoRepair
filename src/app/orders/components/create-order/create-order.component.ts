@@ -29,7 +29,7 @@ export class CreateOrderComponent implements OnInit {
   selectedCar?: ICar
   nowMileage?: number
   nowMileageControl = new FormControl('', [Validators.required]);
-  orderCommentControl = new FormControl('');
+  orderCommentControl = new FormControl('', [Validators.required]);
   orderComment?: string
 
   constructor(private jobService: JobsService, private orderService: OrderService, private clientService: ClientsService) {
@@ -107,10 +107,11 @@ export class CreateOrderComponent implements OnInit {
     const orderComment = this.orderCommentControl.value ? this.orderCommentControl.value : ''
     const nowMileage = this.nowMileage
 
-    if (this.client && this.selectedCar && this.jobsToOrder.length > 0) {
+    if (this.client && this.selectedCar && this.jobsToOrder.length > 0 && nowMileage) {
       const order: IOrder = {
         car: this.selectedCar,
         jobs: this.jobsToOrder,
+        mileage: nowMileage,
         date: (new Date).toString(),
         comment: orderComment
       }

@@ -16,7 +16,7 @@ export class OrderService {
     if (mileage) {
       if (clientForPut.cars?.find(car => car.vin == selectedCar.vin)) {
         // @ts-ignore
-        clientForPut.cars.find(car => car.vin == selectedCar.vin).mileAge = mileage
+        clientForPut.cars.find(car => car.vin == selectedCar.vin).mileage = mileage
       }  else return
     }
 

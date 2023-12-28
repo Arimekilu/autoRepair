@@ -32,7 +32,7 @@
           <p>{{car.mark}} <span>{{car.model}}</span></p>
           <p>{{car.year}} <span>{{car.number}}</span></p>
           <p>{{car.vin}}</p>
-          <p>{{car.mileAge}}км</p>
+          <p>{{car.mileage}}км</p>
           <small>{{car.comment}}</small>
           <button mat-raised-button (click)="selectCar($event, car)">Выбрать</button>
         </div>
@@ -42,7 +42,7 @@
     <ng-template #selectedICar>
       <h3>{{selectedCar?.mark}} {{selectedCar?.model}}</h3>
       <p>{{selectedCar?.year}}  {{selectedCar?.number}}</p>
-      <p>{{selectedCar?.mileAge}}км.</p>
+      <p>{{selectedCar?.mileage}}км.</p>
     </ng-template>
 
 
