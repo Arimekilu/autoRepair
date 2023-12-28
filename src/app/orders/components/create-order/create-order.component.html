@@ -25,7 +25,8 @@
     <h3>{{client.name}}</h3>
     <p>{{client.phone}}</p>
     <p> {{client.comment}}</p>
-    <div style="display: flex; flex-direction: row">
+
+    <div style="display: flex; flex-direction: row" *ngIf="!selectedCar; else selectedICar">
       <div *ngFor="let car of client?.cars" class="card fs07">
         <div>
           <p>{{car.mark}} <span>{{car.model}}</span></p>
@@ -37,6 +38,14 @@
         </div>
       </div>
     </div>
+
+    <ng-template #selectedICar>
+      <h3>{{selectedCar?.mark}} {{selectedCar?.model}}</h3>
+      <p>{{selectedCar?.year}}  {{selectedCar?.number}}</p>
+      <p>{{selectedCar?.mileAge}}км.</p>
+    </ng-template>
+
+
   </div>
 
   <div class="card">
@@ -71,8 +80,17 @@
   <form class="example-form card">
     <mat-form-field class="example-full-width">
       <mat-label>Текущий пробег</mat-label>
-      <input matInput placeholder="Текущий пробег" [formControl]="nowMileageControl">
+      <input matInput placeholder="Текущий пробег" type="number" [formControl]="nowMileageControl">
     </mat-form-field>
   </form>
+
+  <form class="card">
+    <mat-form-field class="example-full-width">
+      <mat-label>Комментарии</mat-label>
+      <textarea matInput placeholder="Комментарии к заказ-наряду" [formControl]="orderCommentControl"></textarea>
+    </mat-form-field>
+  </form>
+
+  <button mat-raised-button color="primary" (click)="createOrder($event)">Создать заказ</button>
 
 </ng-template>

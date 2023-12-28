@@ -29,7 +29,8 @@ export class CreateOrderComponent implements OnInit {
   selectedCar?: ICar
   nowMileage?: number
   nowMileageControl = new FormControl('', [Validators.required]);
-
+  orderCommentControl = new FormControl('');
+  orderComment?: string
 
   constructor(private jobService: JobsService, private orderService: OrderService, private clientService: ClientsService) {
   }
@@ -99,15 +100,24 @@ export class CreateOrderComponent implements OnInit {
   // comment?: string,
   // id?: string,
   // date: string
+
   createOrder($event: MouseEvent) {
     $event.preventDefault()
-    if (this.client && this.selectedCar && this.jobsToOrder.length > 0) {
 
+    const orderComment = this.orderCommentControl.value ? this.orderCommentControl.value : ''
+    const nowMileage = this.nowMileage
+
+    if (this.client && this.selectedCar && this.jobsToOrder.length > 0) {
       const order: IOrder = {
         car: this.selectedCar,
         jobs: this.jobsToOrder,
-        date: (new Date).toString()
+        date: (new Date).toString(),
+        comment: orderComment
       }
+
+      this.orderService.setOrder(order, this.client, this.selectedCar, nowMileage )?.subscribe((res) => {
+        console.log(res)
+      })
 
     }
   }
