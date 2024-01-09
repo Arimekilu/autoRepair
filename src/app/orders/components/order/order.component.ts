@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {IOrder} from "../../../clients/interfaces";
 
 @Component({
@@ -6,6 +6,19 @@ import {IOrder} from "../../../clients/interfaces";
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss']
 })
-export class OrderComponent {
+export class OrderComponent implements OnInit{
   @Input() order?: IOrder
+
+  totalPrise: number = 0
+
+  ngOnInit(): void {
+    if (this.order) {
+      this.totalPrise = this.order.jobs.reduce((sum, job) => {
+        return sum + +job.price;
+      }, 0)
+    }
+  }
+
+
+
 }

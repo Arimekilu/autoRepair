@@ -9,6 +9,7 @@
     <div class="card">
       <div>
         <button mat-button (click)="short = true"> Свернуть</button>
+        <hr>
         <p>ФИО:{{client.name}}</p>
         <p>Телефон:{{client.phone}}</p>
         <p *ngIf="client.comment">{{client.comment}}</p>
@@ -19,19 +20,22 @@
 
         <p>Всего заказ-нарядов {{client.orders ? client.orders.length : 0}}</p>
         <div *ngFor="let order of client.orders" class="shadow">
-          <p>{{order.date}}</p>
-          <p>{{order.car.mark}} {{order.car.model}} {{order.car.year}} {{order.car.number}}</p>
-          <p>{{order.car.vin}}</p>
-          <p>{{order.car.mileage}}</p>
-          <div>
-            <div *ngFor="let job of order.jobs; index as idx">
-              <small>{{idx + 1}}</small>
-              <p>{{job.overview}} <span>{{job.price}}</span></p>
-              <p>{{job.comment}}</p>
-            </div>
-          </div>
-
+          <app-order [order]="order"></app-order>
         </div>
+<!--        <div *ngFor="let order of client.orders" class="shadow">-->
+<!--          <p>{{order.date}}</p>-->
+<!--          <p>{{order.car.mark}} {{order.car.model}} {{order.car.year}} {{order.car.number}}</p>-->
+<!--          <p>{{order.car.vin}}</p>-->
+<!--          <p>{{order.car.mileage}}</p>-->
+<!--          <div>-->
+<!--            <div *ngFor="let job of order.jobs; index as idx">-->
+<!--              <small>{{idx + 1}}</small>-->
+<!--              <p>{{job.overview}} <span>{{job.price}}</span></p>-->
+<!--              <p>{{job.comment}}</p>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--        </div>-->
       </div>
       <button mat-fab color="warn" aria-label="Example icon button with a delete icon" (click)="delete(client)">
         <mat-icon>delete</mat-icon>

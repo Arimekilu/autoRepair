@@ -1,11 +1,16 @@
 <div *ngIf="order">
-  <h3>{{order.date}}</h3>
+  <h3>{{order.date | date:'medium' }}</h3>
   <p>{{order.car.mark}}</p>
   <p>{{order.car.model}}</p>
   <p>Пробег автомобиля:{{order.car.mileage}}км</p>
   <p>Пробег на момент заказ-наряда:{{order.mileage}}км</p>
-  <div *ngFor="let job of order.jobs">
-    <p>{{job.overview}} <span>{{job.price}}</span></p>
-    <p>{{job.comment}}</p>
-  </div>
+
+  <ol>
+    <li *ngFor="let job of order.jobs">
+      <p>{{job.overview}} <span>{{job.price}}р.</span></p>
+      <p>{{job.comment}}</p>
+    </li>
+    <p>Всего:{{totalPrise}}р.</p>
+  </ol>
+
 </div>
