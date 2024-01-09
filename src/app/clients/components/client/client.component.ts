@@ -10,6 +10,7 @@ import {Observable} from "rxjs";
 })
 export class ClientComponent {
   @Input() client: IClient | undefined
+  short: boolean = true
 
 constructor(private clientsService: ClientsService) {
 }
