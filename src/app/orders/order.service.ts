@@ -12,14 +12,12 @@ export class OrderService {
 
   setOrder (order: IOrder, client: IClient, selectedCar: ICar, mileage?: number) {
     const clientForPut: IClient = client
-
     if (mileage) {
       if (clientForPut.cars?.find(car => car.vin == selectedCar.vin)) {
         // @ts-ignore
         clientForPut.cars.find(car => car.vin == selectedCar.vin).mileage = mileage
       }  else return
     }
-
     if (clientForPut.orders) {
       clientForPut.orders.push(order)
     } else {

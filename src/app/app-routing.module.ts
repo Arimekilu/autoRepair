@@ -8,6 +8,7 @@ import {AllJobsComponent} from "./jobs/all-jobs/all-jobs.component";
 import {HomePageComponent} from "./home-page/home-page.component";
 import {AllClientsComponent} from "./clients/components/all-clients/all-clients.component";
 import {CreateOrderComponent} from "./orders/components/create-order/create-order.component";
+import {ClientComponent} from "./clients/components/client/client.component";
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, pathMatch: "full"},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'createClient', component: CreateClientComponent},
   {path: 'jobs', component: AllJobsComponent},
   {path: 'clients', component: AllClientsComponent},
-  {path: 'createOrder', component: CreateOrderComponent}
+  {path: 'createOrder', component: CreateOrderComponent},
+
 ];
 
 @NgModule({

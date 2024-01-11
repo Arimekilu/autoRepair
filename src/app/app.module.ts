@@ -19,12 +19,14 @@ import {AllClientsComponent} from './clients/components/all-clients/all-clients.
 import {CreateCarComponent} from './clients/components/car/create-car/create-car.component';
 import {CarComponent} from './clients/components/car/car/car.component';
 import {JobsService} from "./jobs/jobs.service";
-import { HomePageComponent } from './home-page/home-page.component';
+import {HomePageComponent} from './home-page/home-page.component';
 import {MatIconModule} from "@angular/material/icon";
-import { CreateOrderComponent } from './orders/components/create-order/create-order.component';
-import { OrderComponent } from './orders/components/order/order.component';
+import {CreateOrderComponent} from './orders/components/create-order/create-order.component';
+import {OrderComponent} from './orders/components/order/order.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatTableModule} from "@angular/material/table";
+
 
 @NgModule({
   declarations: [
@@ -44,21 +46,26 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     CreateOrderComponent,
     OrderComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MatIconModule,
-        MatAutocompleteModule,
-        MatProgressSpinnerModule,
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
 
 
+  ],
+  providers: [
+    HttpClient,
+    HttpClientModule,
+    JobsService,
     ],
-  providers: [HttpClient, HttpClientModule, JobsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
