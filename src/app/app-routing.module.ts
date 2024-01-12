@@ -18,6 +18,7 @@ const routes: Routes = [
   {path: 'createClient', component: CreateClientComponent},
   {path: 'jobs', component: AllJobsComponent},
   {path: 'clients', component: AllClientsComponent},
+  {path: 'client/:id', component: ClientComponent},
   {path: 'createOrder', component: CreateOrderComponent},
 
 ];

@@ -13,11 +13,16 @@ export class ClientsService {
     return this.getAllClients()
   }
 
+
   constructor(private http: HttpClient, private firebaseService: FirebaseService) {
   }
 
   setClient(client: IClient) {
     return this.http.post(`${this.firebaseService.firebaseConfig.databaseURL}/clients.json`, client)
+  }
+
+  getClientById (id: string) {
+    return this.http.get(`${this.firebaseService.firebaseConfig.databaseURL}/clients/${id}.json`)
   }
 
   private getAllClients(): Observable<IClient[]> {

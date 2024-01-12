@@ -12,21 +12,31 @@ import {MatTableDataSource, MatTableDataSourcePaginator} from "@angular/material
 export class AllClientsComponent implements OnInit {
   clients$?: Observable<IClient[]>
   dataSource: MatTableDataSource<IClient, MatTableDataSourcePaginator> | undefined
+  clients?: IClient[]
 
   constructor(private clientsService: ClientsService) {
+  }
+
+  getClient(phone: string | number): IClient | undefined {
+
+    const client = this.clients ? this.clients.find(client => client.phone == phone) : undefined
+
+    console.log(client)
+    return client
+
+
   }
 
   ngOnInit(): void {
     this.clients$ = this.clientsService.clients$
     this.clients$.subscribe((res) => {
       this.dataSource = new MatTableDataSource(res)
+      this.clients = res
       console.log(res)
     })
   }
 
   displayedColumns: string[] = ['phone', 'name', 'cars', 'orders'];
-
-  // dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
