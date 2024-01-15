@@ -13,6 +13,9 @@ export class ClientComponent implements OnInit {
   @Input() client: IClient | undefined
   short: boolean = true
   id?: string
+  orderAdd: boolean = false
+  showCars: boolean = false
+  showOrders: boolean = false
 
   constructor(private clientsService: ClientsService, private route: ActivatedRoute) {
   }
@@ -21,6 +24,7 @@ export class ClientComponent implements OnInit {
     this.clientsService.deleteClient(client).subscribe(
       (res) => {
         console.log('Клиент удален', res)
+        this.client = undefined
       },
       (error) => {
         console.log(error)
@@ -29,10 +33,20 @@ export class ClientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.client && this.id) {
-      this.route.params.subscribe(params => this.id = params["id"])
-      this.clientsService.getClientById(this.id).subscribe((res) => {
-        console.log(res)})
+    if (!this.client) {
+      this.route.params.subscribe((params) => {
+        console.log(params)
+        this.id = params["id"]
+        this.clientsService.getClientById(params["id"]).subscribe((res) => {
+          this.client = res
+          this.client.id = this.id
+          console.log('client by id', res)})
+      })
+
     }
+  }
+
+  orderAddToggle() {
+    this.orderAdd = true
   }
 }

@@ -3,6 +3,7 @@ import {ClientsService} from "../../services/clients.service";
 import {IClient} from "../../interfaces";
 import {Observable} from "rxjs";
 import {MatTableDataSource, MatTableDataSourcePaginator} from "@angular/material/table";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-all-clients',
@@ -14,14 +15,18 @@ export class AllClientsComponent implements OnInit {
   dataSource: MatTableDataSource<IClient, MatTableDataSourcePaginator> | undefined
   clients?: IClient[]
 
-  constructor(private clientsService: ClientsService) {
+  constructor(private clientsService: ClientsService, private router: Router) {
   }
 
   getClient(phone: string | number): IClient | undefined {
 
     const client = this.clients ? this.clients.find(client => client.phone == phone) : undefined
 
-    console.log(client)
+    console.log(client )
+    if (client && client.id) {
+      this.clientsService.getClientById(client.id).subscribe(res => console.log(res))
+    }
+    this.router.navigate(['client', client?.id])
     return client
 
 

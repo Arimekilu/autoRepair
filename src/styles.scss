@@ -81,10 +81,11 @@ body {
 
 
 .shadow {
+  display: inline-block;
   box-shadow: 1px 1px 3px #2f6fff;
   border-radius: 20px;
   margin: 10px;
-  padding: 10px;
+  padding: 20px;
 }
 
 .loader {

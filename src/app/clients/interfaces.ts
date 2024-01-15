@@ -4,8 +4,8 @@ export interface IClient {
   name: string,
   phone: string,
   comment?: string
-  cars?: ICar[],
-  orders?: IOrder[],
+  cars: ICar[],
+  orders: IOrder[],
   id?: string
 }
 

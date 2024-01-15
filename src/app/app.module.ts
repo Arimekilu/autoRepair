@@ -26,6 +26,7 @@ import {OrderComponent} from './orders/components/order/order.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatTableModule} from "@angular/material/table";
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
@@ -46,21 +47,22 @@ import {MatTableModule} from "@angular/material/table";
     CreateOrderComponent,
     OrderComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatIconModule,
-    MatAutocompleteModule,
-    MatProgressSpinnerModule,
-    MatTableModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatIconModule,
+        MatAutocompleteModule,
+        MatProgressSpinnerModule,
+        MatTableModule,
+        MatCardModule,
 
 
-  ],
+    ],
   providers: [
     HttpClient,
     HttpClientModule,

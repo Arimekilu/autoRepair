@@ -24,7 +24,7 @@
   <!-- Weight Column -->
   <ng-container matColumnDef="cars">
     <th mat-header-cell *matHeaderCellDef> Автомобиль </th>
-    <td mat-cell *matCellDef="let client">Автомобилей: {{client.cars.length.toString()}} </td>
+    <td mat-cell *matCellDef="let client">Автомобилей: {{client.cars ? client.cars.length : '0' }} </td>
   </ng-container>
 
   <!-- Symbol Column -->
