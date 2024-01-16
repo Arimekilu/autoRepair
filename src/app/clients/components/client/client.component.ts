@@ -16,6 +16,7 @@ export class ClientComponent implements OnInit {
   orderAdd: boolean = false
   showCars: boolean = false
   showOrders: boolean = false
+  createOrder: boolean = false
 
   constructor(private clientsService: ClientsService, private route: ActivatedRoute) {
   }

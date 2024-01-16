@@ -1,14 +1,15 @@
-<div *ngIf="job" class="card">
 
-  <div class="textBlock">
-    <p>{{job.overview}} <span>{{job.price}}₽</span></p>
-    <div *ngIf="job.comment" class="comment">
-      <p>{{job.comment}}</p>
-    </div>
-  </div>
-
-  <button mat-fab color="warn" aria-label="Example icon button with a delete icon" (click)="delete(job)">
-    <mat-icon>delete</mat-icon>
-  </button>
-
-</div>
+<mat-card class="example-card" *ngIf="job">
+  <mat-card-header>
+    <mat-card-title>{{job.overview}}</mat-card-title>
+    <mat-card-subtitle>Стоимость: <strong style="color: black">{{job.price}}₽</strong></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content *ngIf="job.comment">
+    <p >{{job.comment}}</p>
+  </mat-card-content>
+  <mat-card-actions >
+    <button mat-button color="warn" (click)="delete(job)">Удалить</button>
+    <button mat-button>Редактировать</button>
+  </mat-card-actions>
+</mat-card>
+<hr>

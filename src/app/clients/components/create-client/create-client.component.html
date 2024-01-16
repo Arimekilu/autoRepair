@@ -16,10 +16,13 @@
     <input matInput placeholder="Введите комментарии" type="text" formControlName="comment">
   </mat-form-field>
 
-  <button mat-raised-button (click)="createCar = !createCar">Добавить автомобиль
-    <span *ngIf="!createCar">&#709;</span>
-    <span *ngIf="createCar">&#708;</span>
-  </button>
+  <div>
+    <button mat-raised-button (click)="createCar = !createCar">Добавить автомобиль
+      <span *ngIf="!createCar">&#709;</span>
+      <span *ngIf="createCar">&#708;</span>
+    </button>
+  </div>
+
   <app-create-car *ngIf="createCar" (newCarEvent)="addCar($event)"></app-create-car>
 
   <div class="success" *ngIf="doneCar">
@@ -27,8 +30,11 @@
     <button mat-raised-button (click)="doneCar = false; createCar = false">Ок</button>
   </div>
 
-  <button mat-raised-button color="primary" [disabled]="createClientForm.invalid" (click)="createClient($event)">Создать клиента
-  </button>
+  <div>
+    <button mat-raised-button color="primary" [disabled]="createClientForm.invalid" (click)="createClient($event)">
+      Создать клиента
+    </button>
+  </div>
 
 </form>
 

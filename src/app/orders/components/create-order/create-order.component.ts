@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {JobsService} from "../../../jobs/jobs.service";
 import {OrderService} from "../../order.service";
 import {map, Observable, startWith} from "rxjs";
@@ -14,7 +14,8 @@ import {ClientsService} from "../../../clients/services/clients.service";
   providers: [OrderService]
 })
 export class CreateOrderComponent implements OnInit {
-  @Input() client?: IClient
+  @Input() client?: IClient;
+  @Input() car?: ICar
 
   clients: IClient[] = []
   jobs: IJob[] = []
@@ -31,6 +32,10 @@ export class CreateOrderComponent implements OnInit {
   nowMileageControl = new FormControl('', [Validators.required]);
   orderCommentControl = new FormControl('', [Validators.required]);
   orderComment?: string
+  totalPrise: number = 0
+  btnDisables: boolean = false
+  orderCreated: boolean = false
+
 
   constructor(private jobService: JobsService, private orderService: OrderService, private clientService: ClientsService) {
   }
@@ -44,13 +49,19 @@ export class CreateOrderComponent implements OnInit {
       this.loading = false
     }))
 
-    this.clientService.clients$.subscribe((res) => {
-      this.clients = res
-      for (let client of res) {
-        this.options.push(client.name)
-      }
-      this.loading = false
-    })
+    if (this.car) {
+      this.selectedCar = this.car
+    }
+
+    if (!this.client) {
+      this.clientService.clients$.subscribe((res) => {
+        this.clients = res
+        for (let client of res) {
+          this.options.push(client.name)
+        }
+        this.loading = false
+      })
+    }
 
     this.filteredOptions = this.selectClientControl.valueChanges.pipe(
       startWith(''),
@@ -75,11 +86,11 @@ export class CreateOrderComponent implements OnInit {
 
   addJob($event: MouseEvent) {
     $event.preventDefault()
-
     const jobOverview = this.selectJobControl.value
     const selectedJob = this.jobs.find(job => job.overview.toLowerCase() == jobOverview?.toLowerCase())
     if (selectedJob) {
       this.jobsToOrder.push(selectedJob)
+      this.totalPrise += selectedJob.price
     }
     this.selectJobControl.reset()
   }
@@ -95,14 +106,9 @@ export class CreateOrderComponent implements OnInit {
     this.selectedCar = car
   }
 
-  // car: ICar,
-  // jobs: IJob[],
-  // comment?: string,
-  // id?: string,
-  // date: string
-
   createOrder($event: MouseEvent) {
     $event.preventDefault()
+    this.btnDisables = true
 
     const orderComment = this.orderCommentControl.value ? this.orderCommentControl.value : ''
     const nowMileage = this.nowMileageControl.value
@@ -115,13 +121,17 @@ export class CreateOrderComponent implements OnInit {
         date: (new Date).toString(),
         comment: orderComment
       }
-      console.log('Client:', this.client.name)
-      console.log('Car', this.selectedCar.model + ' ' + this.selectedCar.mark)
 
-      this.orderService.setOrder(order, this.client, this.selectedCar, +nowMileage )?.subscribe((res) => {
+      this.orderService.setOrder(order, this.client, this.selectedCar, +nowMileage)?.subscribe((res) => {
         console.log(res)
+        this.jobsToOrder = []
+        this.nowMileageControl.reset()
+        this.selectedCar = undefined
+        this.orderCreated = true
+        this.btnDisables = false
       })
 
     }
   }
+
 }

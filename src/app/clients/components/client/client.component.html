@@ -1,50 +1,50 @@
-<div *ngIf="client">
+<!--<div *ngIf="client">-->
 
-  <div class="card" *ngIf="short; else long" (click)="short = false">
-    <p>{{client.name}}</p>
-    <p><small>{{client.phone}}</small></p>
-  </div>
+<!--  <div class="card" *ngIf="short; else long" (click)="short = false">-->
+<!--    <p>{{client.name}}</p>-->
+<!--    <p><small>{{client.phone}}</small></p>-->
+<!--  </div>-->
 
-  <ng-template #long>
-    <div class="card">
-      <div>
-        <button mat-button (click)="short = true"> Свернуть</button>
-        <hr>
-        <p>ФИО:{{client.name}}</p>
-        <p>Телефон:{{client.phone}}</p>
-        <p *ngIf="client.comment">{{client.comment}}</p>
+<!--  <ng-template #long>-->
+<!--    <div class="card">-->
+<!--      <div>-->
+<!--        <button mat-button (click)="short = true"> Свернуть</button>-->
+<!--        <hr>-->
+<!--        <p>ФИО:{{client.name}}</p>-->
+<!--        <p>Телефон:{{client.phone}}</p>-->
+<!--        <p *ngIf="client.comment">{{client.comment}}</p>-->
 
-        <div *ngFor="let car of client.cars">
-          <app-car [car]="car"></app-car>
-        </div>
+<!--        <div *ngFor="let car of client.cars">-->
+<!--          <app-car [car]="car"></app-car>-->
+<!--        </div>-->
 
-        <p>Всего заказ-нарядов {{client.orders ? client.orders.length : 0}}</p>
-        <div *ngFor="let order of client.orders" class="shadow">
-          <app-order [order]="order"></app-order>
-        </div>
-        <!--        <div *ngFor="let order of client.orders" class="shadow">-->
-        <!--          <p>{{order.date}}</p>-->
-        <!--          <p>{{order.car.mark}} {{order.car.model}} {{order.car.year}} {{order.car.number}}</p>-->
-        <!--          <p>{{order.car.vin}}</p>-->
-        <!--          <p>{{order.car.mileage}}</p>-->
-        <!--          <div>-->
-        <!--            <div *ngFor="let job of order.jobs; index as idx">-->
-        <!--              <small>{{idx + 1}}</small>-->
-        <!--              <p>{{job.overview}} <span>{{job.price}}</span></p>-->
-        <!--              <p>{{job.comment}}</p>-->
-        <!--            </div>-->
-        <!--          </div>-->
+<!--        <p>Всего заказ-нарядов {{client.orders ? client.orders.length : 0}}</p>-->
+<!--        <div *ngFor="let order of client.orders" class="shadow">-->
+<!--          <app-order [order]="order"></app-order>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;        <div *ngFor="let order of client.orders" class="shadow">&ndash;&gt;-->
+<!--        &lt;!&ndash;          <p>{{order.date}}</p>&ndash;&gt;-->
+<!--        &lt;!&ndash;          <p>{{order.car.mark}} {{order.car.model}} {{order.car.year}} {{order.car.number}}</p>&ndash;&gt;-->
+<!--        &lt;!&ndash;          <p>{{order.car.vin}}</p>&ndash;&gt;-->
+<!--        &lt;!&ndash;          <p>{{order.car.mileage}}</p>&ndash;&gt;-->
+<!--        &lt;!&ndash;          <div>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <div *ngFor="let job of order.jobs; index as idx">&ndash;&gt;-->
+<!--        &lt;!&ndash;              <small>{{idx + 1}}</small>&ndash;&gt;-->
+<!--        &lt;!&ndash;              <p>{{job.overview}} <span>{{job.price}}</span></p>&ndash;&gt;-->
+<!--        &lt;!&ndash;              <p>{{job.comment}}</p>&ndash;&gt;-->
+<!--        &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;          </div>&ndash;&gt;-->
 
-        <!--        </div>-->
-        <button mat-raised-button (click)="orderAddToggle()">Добавить заказ-наряд</button>
-        <app-create-order *ngIf="orderAdd" [client]="client"></app-create-order>
-      </div>
-      <button mat-fab color="warn" aria-label="Example icon button with a delete icon" (click)="delete(client)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </div>
-  </ng-template>
-</div>
+<!--        &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--        <button mat-raised-button (click)="orderAddToggle()">Добавить заказ-наряд</button>-->
+<!--        <app-create-order *ngIf="orderAdd" [client]="client"></app-create-order>-->
+<!--      </div>-->
+<!--      <button mat-fab color="warn" aria-label="Example icon button with a delete icon" (click)="delete(client)">-->
+<!--        <mat-icon>delete</mat-icon>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </ng-template>-->
+<!--</div>-->
 
 <mat-card class="example-card" *ngIf="client">
   <mat-card-header>
@@ -60,7 +60,7 @@
       Автомобили: {{client.cars.length > 0 ? client.cars.length : '0'}}</button>
   </mat-card-actions>
   <mat-card-content *ngIf="showCars">
-    <div *ngFor="let car of client.cars" class="shadow" >
+    <div *ngFor="let car of client.cars" class="shadow">
       <h3>{{car.mark}} {{car.model}}</h3>
       <p>VIN: {{car.vin}}</p>
       <p>Пробег: {{car.mileage}}км.</p>
@@ -70,26 +70,22 @@
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="showOrders = !showOrders">Заказ-наряды: {{client.orders.length > 0 ? client.orders.length : '0'}}</button>
+    <button mat-button (click)="showOrders = !showOrders">
+      Заказ-наряды: {{client.orders.length > 0 ? client.orders.length : '0'}}</button>
   </mat-card-actions>
-  <mat-card-content *ngIf="showOrders">
-    <div *ngFor="let order of client.orders" class="shadow" >
-      <h3>{{order.date}}</h3>
-      <p>Автомобиль: <strong>{{order.car.mark + ' ' + order.car.model }}</strong></p>
-      <p>Пробег на момент выполнения: <strong>{{order.mileage}}км.</strong></p>
-      <ol>
-        <li *ngFor="let job of order.jobs; index as idx">
-          <p>{{job.overview}} <span>{{job.price}}Р.</span></p>
-          <p>{{job.comment}}</p>
-        </li>
-        <p>Всего работ: <strong>{{order.jobs.length}}</strong></p>
-        <p>На сумму: <strong></strong></p>
-      </ol>
-      <hr>
-      <p>{{order.comment}}</p>
-
+  <mat-card-content *ngIf="showOrders" >
+    <div class="flexCol">
+      <div *ngFor="let order of client.orders" class="shadow">
+        <app-order [order]="order"></app-order>
+      </div>
     </div>
   </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="createOrder = !createOrder">Добавить заказ-наряд</button>
+  </mat-card-actions>
+  <app-create-order *ngIf="createOrder" [client]="client"
+                    [car]="client.cars.length === 1 ? client.cars[0] : undefined"></app-create-order>
 </mat-card>
+
 
 

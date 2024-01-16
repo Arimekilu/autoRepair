@@ -16,11 +16,15 @@
     <input matInput placeholder="Комментарий" type="text" formControlName="comment">
   </mat-form-field>
 
-  <button mat-raised-button color="primary" (click)="submit($event)" [disabled]="createJobForm.invalid">Добавить
-    работу
-  </button>
+  <div class="m0auto">
+    <button mat-raised-button color="primary" (click)="submit($event)" [disabled]="createJobForm.invalid">Добавить
+      работу
+    </button>
+  </div>
 
 </form>
+
+
 
 <div class="success" *ngIf="done">
   <p>Работа добавлена</p>
