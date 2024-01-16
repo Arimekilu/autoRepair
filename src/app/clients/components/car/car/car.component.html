@@ -21,15 +21,15 @@
 <mat-card class="example-card" *ngIf="car">
   <mat-card-header>
     <mat-card-title>{{car.mark + ' ' + car.model + ' ' + car.year + ' ' + 'г.в.'}} </mat-card-title>
-    <mat-card-subtitle>{{car.vin}}</mat-card-subtitle>
-    <mat-card-subtitle>{{car.number}}</mat-card-subtitle>
+    <mat-card-subtitle>VIN: {{car.vin}}</mat-card-subtitle>
+    <mat-card-subtitle>Госномер: {{car.number}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p>{{car.mileage}}</p>
-    <p>{{car.comment}}</p>
+    <p>Пробег: {{car.mileage}}км.</p>
+    <p>Комментарии: {{car.comment}}</p>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>Редактировать</button>
-    <button mat-button>Удалить</button>
+    <button mat-button >Удалить</button>
   </mat-card-actions>
 </mat-card>

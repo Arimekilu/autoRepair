@@ -60,14 +60,9 @@
       Автомобили: {{client.cars.length > 0 ? client.cars.length : '0'}}</button>
   </mat-card-actions>
   <mat-card-content *ngIf="showCars">
-    <div *ngFor="let car of client.cars" class="shadow">
-      <h3>{{car.mark}} {{car.model}}</h3>
-      <p>VIN: {{car.vin}}</p>
-      <p>Пробег: {{car.mileage}}км.</p>
-      <p>Год выпуска: {{car.year}}</p>
-      <p>Гос.номер: {{car.number}}</p>
-      <p>Комментарии: {{car.comment}}</p>
-    </div>
+
+      <app-car *ngFor="let car of client.cars" [car]="car" class="shadow"></app-car>
+
   </mat-card-content>
   <mat-card-actions>
     <button mat-button (click)="showOrders = !showOrders">
