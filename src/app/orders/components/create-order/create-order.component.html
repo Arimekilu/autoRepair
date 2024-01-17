@@ -5,28 +5,27 @@
 
   <div class="container">
 
-      <form *ngIf="!client" >
-        <mat-form-field class="example-full-width">
-          <mat-label>Выберите клиента</mat-label>
-          <input type="text"
-                 placeholder="Выберите клиента"
-                 aria-label="Выберите клиента"
-                 matInput
-                 [formControl]="selectClientControl"
-                 [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{option}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
+    <form *ngIf="!client">
+      <mat-form-field class="example-full-width">
+        <mat-label>Выберите клиента</mat-label>
+        <input type="text"
+               placeholder="Выберите клиента"
+               aria-label="Выберите клиента"
+               matInput
+               [formControl]="selectClientControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div>
         <button mat-raised-button (click)="selectClient($event)">Добавить</button>
-      </form>
-
-
+      </div>
+    </form>
 
     <div *ngIf="client">
-
       <mat-card class="example-card" *ngIf="client">
         <mat-card-header>
           <mat-card-title>{{client.name}}</mat-card-title>
@@ -37,22 +36,21 @@
         </mat-card-content>
       </mat-card>
 
-      <div *ngIf="!selectedCar; else selectedICar" >
-        <div *ngFor="let car of client?.cars" >
+      <div *ngIf="!selectedCar; else selectedICar">
+        <strong>Выберите автомобиль:</strong>
+        <div *ngFor="let car of client?.cars">
           <app-car [car]="car" (newItemEvent)="addItem($event)"></app-car>
         </div>
       </div>
 
-      <ng-template #selectedICar >
-        <h3>{{selectedCar?.mark}} {{selectedCar?.model}}</h3>
-        <p>{{selectedCar?.year}}  {{selectedCar?.number}}</p>
-        <p>{{selectedCar?.mileage}}км.</p>
+      <ng-template #selectedICar>
+        <app-car [car]="selectedCar" [withButtons]="false"></app-car>
       </ng-template>
 
 
     </div>
 
-    <div >
+    <div>
       <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>Добавьте работы</mat-label>
@@ -72,7 +70,7 @@
       <button mat-raised-button (click)="addJob($event)">Добавить</button>
     </div>
 
-    <div *ngIf="jobsToOrder.length > 0" class="card">
+    <div *ngIf="jobsToOrder.length > 0">
       <strong>Выбранные работы:</strong>
 
       <div *ngFor="let job of jobsToOrder">
@@ -83,16 +81,19 @@
       <p>На сумму: <strong>{{totalPrise}}Р.</strong></p>
     </div>
 
-    <form  >
-      <mat-form-field class="example-full-width">
-        <mat-label>Текущий пробег</mat-label>
-        <input matInput placeholder="Текущий пробег" type="number" [formControl]="nowMileageControl">
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Комментарии</mat-label>
-        <textarea matInput placeholder="Комментарии к заказ-наряду" [formControl]="orderCommentControl"></textarea>
-      </mat-form-field>
+    <form>
+      <div>
+        <mat-form-field class="example-full-width">
+          <mat-label>Текущий пробег</mat-label>
+          <input matInput placeholder="Текущий пробег" type="number" [formControl]="nowMileageControl">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="example-full-width">
+          <mat-label>Комментарии</mat-label>
+          <textarea matInput placeholder="Комментарии к заказ-наряду" [formControl]="orderCommentControl"></textarea>
+        </mat-form-field>
+      </div>
     </form>
     <div>
       <button mat-raised-button color="primary"

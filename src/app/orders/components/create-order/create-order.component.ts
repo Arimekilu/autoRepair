@@ -123,6 +123,7 @@ export class CreateOrderComponent implements OnInit {
 
       this.orderService.setOrder(order, this.client, this.selectedCar, +nowMileage)?.subscribe((res) => {
         console.log(res)
+        this.client = undefined
         this.jobsToOrder = []
         this.nowMileageControl.reset()
         this.selectedCar = undefined

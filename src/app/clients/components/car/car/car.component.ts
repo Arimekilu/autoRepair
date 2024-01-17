@@ -10,8 +10,9 @@ export class CarComponent {
 
   @Input()car?: ICar
   @Input()openInClient: boolean = false
+  @Input()withButtons?: boolean = true
   @Output() newItemEvent = new EventEmitter<ICar>();
-  fullView: boolean = false
+
 
   addNewItem(value: ICar) {
     this.newItemEvent.emit(value);
