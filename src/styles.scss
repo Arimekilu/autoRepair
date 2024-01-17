@@ -17,11 +17,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
   margin: 0 auto;
   border-radius: 20px;
-  box-shadow: 1px 1px 3px #4d2be2;
+  box-shadow: 1px 1px 3px #2D2D2DFF;
   padding: 20px;
+  button {
+    margin-top: 20px
+  }
 }
 
 .m0auto {
@@ -62,7 +64,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow: 1px 1px 3px #2f6fff;
+  box-shadow: 1px 1px 3px #2D2D2DFF;
   border-radius: 20px;
   padding: 20px;
   vertical-align: center;
@@ -84,7 +86,7 @@ body {
 
 .shadow {
   display: inline-block;
-  box-shadow: 1px 1px 3px #2f6fff;
+  box-shadow: 1px 1px 3px #2d2d2d;
   border-radius: 20px;
   margin: 10px;
   padding: 20px;
@@ -101,5 +103,6 @@ body {
 }
 
 .example-card {
+  margin: 20px;
   max-width: 400px;
 }

@@ -35,8 +35,7 @@
     <input matInput placeholder="Введите комментарии" type="text" formControlName="comment">
   </mat-form-field>
 
-  <button mat-raised-button color="primary" [disabled]="createCarForm.invalid" (click)="createCar()">Добавить автомобиль
-  </button>
+
 
   <div class="success" *ngIf="done">
     <p>Автомобиль добавлен</p>
@@ -44,3 +43,5 @@
   </div>
 
 </form>
+<button mat-raised-button color="primary" [disabled]="createCarForm.invalid" (click)="createCar()">Добавить автомобиль
+</button>

@@ -1,4 +1,4 @@
-import {Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {JobsService} from "../../../jobs/jobs.service";
 import {OrderService} from "../../order.service";
 import {map, Observable, startWith} from "rxjs";
@@ -101,9 +101,8 @@ export class CreateOrderComponent implements OnInit {
     this.client = this.clients.find(client => client.name.toLowerCase() == clientName?.toLowerCase())
   }
 
-  selectCar($event: MouseEvent, car: ICar) {
-    $event.preventDefault()
-    this.selectedCar = car
+  addItem(newItem: ICar) {
+    this.selectedCar = newItem
   }
 
   createOrder($event: MouseEvent) {

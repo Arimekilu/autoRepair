@@ -5,7 +5,7 @@
 
   <div class="container">
 
-      <form class="card" *ngIf="!client" >
+      <form *ngIf="!client" >
         <mat-form-field class="example-full-width">
           <mat-label>Выберите клиента</mat-label>
           <input type="text"
@@ -37,21 +37,13 @@
         </mat-card-content>
       </mat-card>
 
-      <div *ngIf="!selectedCar; else selectedICar" class="card">
-        <div *ngFor="let car of client?.cars" class="card">
-          <app-car [car]="car"></app-car>
-          <div>
-            <p>{{car.mark}} <span>{{car.model}}</span></p>
-            <p>{{car.year}} <span>{{car.number}}</span></p>
-            <p>{{car.vin}}</p>
-            <p>{{car.mileage}}км</p>
-            <small>{{car.comment}}</small>
-            <button mat-raised-button (click)="selectCar($event, car)">Выбрать</button>
-          </div>
+      <div *ngIf="!selectedCar; else selectedICar" >
+        <div *ngFor="let car of client?.cars" >
+          <app-car [car]="car" (newItemEvent)="addItem($event)"></app-car>
         </div>
       </div>
 
-      <ng-template #selectedICar class="card">
+      <ng-template #selectedICar >
         <h3>{{selectedCar?.mark}} {{selectedCar?.model}}</h3>
         <p>{{selectedCar?.year}}  {{selectedCar?.number}}</p>
         <p>{{selectedCar?.mileage}}км.</p>
@@ -60,7 +52,7 @@
 
     </div>
 
-    <div class="card">
+    <div >
       <form class="example-form">
         <mat-form-field class="example-full-width">
           <mat-label>Добавьте работы</mat-label>
@@ -91,7 +83,7 @@
       <p>На сумму: <strong>{{totalPrise}}Р.</strong></p>
     </div>
 
-    <form class="card" >
+    <form  >
       <mat-form-field class="example-full-width">
         <mat-label>Текущий пробег</mat-label>
         <input matInput placeholder="Текущий пробег" type="number" [formControl]="nowMileageControl">

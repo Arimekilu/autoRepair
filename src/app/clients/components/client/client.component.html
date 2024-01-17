@@ -61,7 +61,7 @@
   </mat-card-actions>
   <mat-card-content *ngIf="showCars">
 
-      <app-car *ngFor="let car of client.cars" [car]="car" class="shadow"></app-car>
+      <app-car *ngFor="let car of client.cars" [car]="car" [openInClient]="true"></app-car>
 
   </mat-card-content>
   <mat-card-actions>

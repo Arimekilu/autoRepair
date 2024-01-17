@@ -1,15 +1,16 @@
 <div *ngIf="order">
-  <h3>{{order.date}}</h3>
+  <h3>{{order.date | date: "dd MMMM YYYY, ru-RU" }}</h3>
   <p>Автомобиль: <strong>{{order.car.mark + ' ' + order.car.model }}</strong></p>
   <p>Пробег на момент выполнения: <strong>{{order.mileage}}км.</strong></p>
   <ol>
-    <li *ngFor="let job of order.jobs; index as idx">
+    <li *ngFor="let job of order.jobs">
       <p>{{job.overview}} <span>{{job.price}}Р.</span></p>
       <p>{{job.comment}}</p>
     </li>
-    <p>Всего работ: <strong>{{order.jobs.length}}</strong></p>
-    <p>На сумму: {{totalPrise}}Р. <strong></strong></p>
   </ol>
+  <hr>
+  <p>Всего работ: <strong>{{order.jobs.length}}</strong></p>
+  <p>На сумму: {{totalPrise}}Р. <strong></strong></p>
   <hr>
   <p>{{order.comment}}</p>
 </div>
