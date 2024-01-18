@@ -10,12 +10,12 @@
   </mat-card-content>
   <div *ngIf="withButtons">
   <mat-card-actions *ngIf="openInClient; else openInOrder">
-    <button mat-button>Редактировать</button>
-    <button mat-button >Удалить</button>
+    <button mat-raised-button>Редактировать</button>
+    <button mat-raised-button >Удалить</button>
   </mat-card-actions>
   <ng-template #openInOrder>
     <mat-card-actions #openInOrder>
-      <button mat-button (click)="addNewItem(car)">Выбрать</button>
+      <button mat-raised-button (click)="addNewItem(car)">Выбрать</button>
     </mat-card-actions>
   </ng-template>
   </div>

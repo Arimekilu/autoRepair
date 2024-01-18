@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {NgModule, Provider} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -12,7 +12,7 @@ import {LoginComponent} from './auth/login/login.component';
 import {CreateJobComponent} from './jobs/create-job/create-job.component';
 import {JobComponent} from './jobs/job/job.component';
 import {AllJobsComponent} from './jobs/all-jobs/all-jobs.component';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {CreateClientComponent} from './clients/components/create-client/create-client.component';
 import {ClientComponent} from './clients/components/client/client.component';
 import {AllClientsComponent} from './clients/components/all-clients/all-clients.component';
@@ -27,8 +27,13 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatTableModule} from "@angular/material/table";
 import {MatCardModule} from "@angular/material/card";
+import {AuthInterceptor} from "./interceptors/auth.inetceptor";
 
-
+const INTERCEPTOR_PROVIDER: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  multi: true,
+  useClass: AuthInterceptor
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +72,7 @@ import {MatCardModule} from "@angular/material/card";
     HttpClient,
     HttpClientModule,
     JobsService,
+    INTERCEPTOR_PROVIDER,
     ],
   bootstrap: [AppComponent]
 })
