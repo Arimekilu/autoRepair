@@ -9,7 +9,8 @@ import {HomePageComponent} from "./home-page/home-page.component";
 import {AllClientsComponent} from "./clients/components/all-clients/all-clients.component";
 import {CreateOrderComponent} from "./orders/components/create-order/create-order.component";
 import {ClientComponent} from "./clients/components/client/client.component";
-import {aboutGuard, GuardService} from "./guard.service";
+import {aboutGuard} from "./guard.service";
+
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, pathMatch: "full"},

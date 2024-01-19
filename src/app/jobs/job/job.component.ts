@@ -10,6 +10,12 @@ import {JobsService} from "../jobs.service";
 export class JobComponent implements OnInit {
 
   @Input() job: IJob | undefined
+  editing: Boolean = false
+
+  addItem(editedJob: IJob) {
+    this.job = editedJob
+    this.editing = false
+  }
 
   public delete(job: IJob) {
     this.jobService.deleteJob(job).subscribe((res) => {

@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {initializeApp} from "firebase/app";
 import {getDatabase} from 'firebase/database'
-import {getAuth, signOut} from "firebase/auth";
-import {authState, idToken} from "rxfire/auth";
+import {createUserWithEmailAndPassword, getAuth, signOut} from "firebase/auth";
+import {authState} from "rxfire/auth";
 import {filter} from "rxjs";
+import {FormGroup} from "@angular/forms";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCeefMV0_PXkd_GeFyepWdCMrTbdtwU4R0",
@@ -26,6 +27,7 @@ export class FirebaseService {
   authObserve$
   db
   isAuth: boolean = false
+  error?: Object
   constructor() {
     this.firebaseConfig = {
       apiKey: "AIzaSyCeefMV0_PXkd_GeFyepWdCMrTbdtwU4R0",
@@ -36,28 +38,41 @@ export class FirebaseService {
       messagingSenderId: "1007989762427",
       appId: "1:1007989762427:web:299cec0158bb54edeff5de"
     };
-
     this.app = initializeApp(firebaseConfig)
     this.auth = getAuth();
+
     this.loggedIn$ = authState(this.auth).pipe(filter(user => !!user)).subscribe(user => {
-      console.log(user, ' will be null if logged out');
+
     });
     authState(this.auth).subscribe(user => {
-      console.log(user, ' will be null if logged out');
+      console.log('user', user)
       this.isAuth = !!user;
     });
     this.authObserve$ = authState(this.auth)
     this.db = getDatabase(this.app);
-    console.log(this.db)
-    console.log('this.auth', this.auth)
     authState(this.auth).subscribe(user => {
-      console.log(user);
+      console.log('authState')
     });
+  }
 
-    idToken(this.auth).subscribe(token => {
-      console.log(token)
-    })
+  regNewUser(email: string, password: string, regForm: FormGroup) {
+    createUserWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        console.log(`Пользователь (${user.email}) успешно зарегистрирован`)
+        regForm.reset()
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        this.error = {
+          code: errorCode,
+          message: errorMessage
+        }
 
+      });
   }
 
   logout() {

@@ -78,6 +78,9 @@
   <mat-card-actions>
     <button mat-raised-button (click)="createOrder = !createOrder">Добавить заказ-наряд</button>
   </mat-card-actions>
+  <mat-card-actions>
+    <button mat-raised-button color="warn" (click)="delete(client)">Удалить клиента</button>
+  </mat-card-actions>
   <app-create-order *ngIf="createOrder" [client]="client"
                     [car]="client.cars.length === 1 ? client.cars[0] : undefined"></app-create-order>
 </mat-card>

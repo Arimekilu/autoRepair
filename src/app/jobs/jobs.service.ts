@@ -19,11 +19,15 @@ export class JobsService {
     return this.http.post<IJob>(`${this.firebaseService.firebaseConfig.databaseURL}/jobs.json`, job)
   }
 
+  redactJob (job: IJob) {
+    return this.http.put<IJob>(`${this.firebaseService.firebaseConfig.databaseURL}/jobs/${job.id}.json`, job)
+  }
+
   deleteJob(job: IJob) {
     return this.http.delete(`${this.firebaseService.firebaseConfig.databaseURL}/jobs/${job.id}.json`,)
   }
 
-  private getAllJobs(): Observable<IJob[]> {
+  getAllJobs(): Observable<IJob[]> {
     return this.http.get(`${this.firebaseService.firebaseConfig.databaseURL}/jobs.json`).pipe(
       map((response: { [key: string]: any }) => {
         return Object.keys(response).map((key) => ({

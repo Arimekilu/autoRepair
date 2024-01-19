@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IClient} from "../../interfaces";
 import {ClientsService} from "../../services/clients.service";
-import {Observable} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-client',
@@ -18,19 +17,24 @@ export class ClientComponent implements OnInit {
   showOrders: boolean = false
   createOrder: boolean = false
 
-  constructor(private clientsService: ClientsService, private route: ActivatedRoute) {
+  constructor(private clientsService: ClientsService, private route: ActivatedRoute, private router: Router) {
   }
 
   delete(client: IClient) {
-    this.clientsService.deleteClient(client).subscribe(
-      (res) => {
-        console.log('Клиент удален', res)
-        this.client = undefined
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
+    //TODO Переделать на модалку
+    confirm('Точно?')
+    {
+      this.clientsService.deleteClient(client).subscribe(
+        (res) => {
+          console.log('Клиент удален', res)
+          this.client = undefined
+          this.router.navigate(['clients'])
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+    }
   }
 
   ngOnInit(): void {
@@ -41,7 +45,8 @@ export class ClientComponent implements OnInit {
         this.clientsService.getClientById(params["id"]).subscribe((res) => {
           this.client = res
           this.client.id = this.id
-          console.log('client by id', res)})
+          console.log('client by id', res)
+        })
       })
 
     }

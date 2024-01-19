@@ -1,5 +1,5 @@
 
-<mat-card class="example-card" *ngIf="job">
+<mat-card class="example-card" *ngIf="job && !editing; else edit" >
   <mat-card-header>
     <mat-card-title>{{job.overview}}</mat-card-title>
     <mat-card-subtitle>Стоимость: <strong style="color: black">{{job.price}}₽</strong></mat-card-subtitle>
@@ -9,7 +9,12 @@
   </mat-card-content>
   <mat-card-actions >
     <button mat-raised-button color="warn" (click)="delete(job)">Удалить</button>
-    <button mat-raised-button>Редактировать</button>
+    <button mat-raised-button (click)="editing = true">Редактировать</button>
   </mat-card-actions>
 </mat-card>
+
+<ng-template #edit>
+  <app-create-job [IJob]="job" (newItemEvent)="addItem($event)"></app-create-job>
+</ng-template>
+
 <hr>

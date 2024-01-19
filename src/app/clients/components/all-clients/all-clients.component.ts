@@ -37,7 +37,6 @@ export class AllClientsComponent implements OnInit {
     this.clients$.subscribe((res) => {
       this.dataSource = new MatTableDataSource(res)
       this.clients = res
-      console.log(res)
     })
   }
 

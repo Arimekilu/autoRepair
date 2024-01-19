@@ -1,5 +1,8 @@
 <form class="container" [formGroup]="createJobForm" (click)="done = false">
-  <h3>Добавление работ</h3>
+  <h3 *ngIf="!IJob; else edit">Добавление работ</h3>
+  <ng-template #edit>
+    <h3 >Редактирование работ</h3>
+  </ng-template>
 
   <mat-form-field class="example-full-width">
     <mat-label>Описание</mat-label>
@@ -16,14 +19,20 @@
     <input matInput placeholder="Комментарий" type="text" formControlName="comment">
   </mat-form-field>
 
-  <div >
-    <button mat-raised-button color="primary" (click)="submit($event)" [disabled]="createJobForm.invalid">Добавить
+  <div *ngIf="!IJob; else redactJob">
+    <button mat-raised-button color="primary" (click)="redact($event)" [disabled]="createJobForm.invalid">Добавить
       работу
     </button>
   </div>
 
-</form>
+  <ng-template #redactJob>
+    <div>
+      <button mat-raised-button color="primary" (click)="redact($event)" [disabled]="createJobForm.invalid">Изменить
+      </button>
+    </div>
+  </ng-template>
 
+</form>
 
 
 <div class="success" *ngIf="done">
