@@ -1,5 +1,10 @@
+<app-error [error]="IError" *ngIf="IError"></app-error>
+<mat-spinner *ngIf="loading && !IError; else loaded" class="loader"></mat-spinner>
+
+<ng-template #loaded>
 <div>
   <div *ngFor="let job of jobs$ | async">
     <app-job [job]="job"></app-job>
   </div>
 </div>
+</ng-template>

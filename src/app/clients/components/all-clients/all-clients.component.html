@@ -1,34 +1,34 @@
-<!--<div *ngFor="let client of clients$ | async">-->
-<!--  <app-client [client]="client"></app-client>-->
-<!--</div>-->
+<app-error [error]="IError" *ngIf="IError"></app-error>
+<mat-spinner *ngIf="loading && !IError; else loaded" class="loader"></mat-spinner>
 
-<mat-form-field>
+<ng-template #loaded >
+<mat-form-field class="mw100" >
   <mat-label>Поиск клиента</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Введите ФИО или телефон" #input>
 </mat-form-field>
 
 
-<table mat-table *ngIf="dataSource" [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table *ngIf="dataSource" [dataSource]="dataSource" class="mat-elevation-z8 mw100" >
 
-  <ng-container matColumnDef="phone" >
+  <ng-container matColumnDef="phone" class="mw25" >
     <th mat-header-cell *matHeaderCellDef> Телефон </th>
     <td mat-cell *matCellDef="let client" (click)="getClient(client.phone)"> {{client.phone}} </td>
   </ng-container>
 
   <!-- Name Column -->
-  <ng-container matColumnDef="name">
+  <ng-container matColumnDef="name" class="mw25">
     <th mat-header-cell *matHeaderCellDef> ФИО </th>
     <td mat-cell *matCellDef="let client" (click)="getClient(client.phone)"> {{client.name}} </td>
   </ng-container>
 
   <!-- Weight Column -->
-  <ng-container matColumnDef="cars">
+  <ng-container matColumnDef="cars" class="mw25" >
     <th mat-header-cell *matHeaderCellDef> Автомобиль </th>
     <td mat-cell *matCellDef="let client" (click)="getClient(client.phone)">Автомобилей: {{client.cars ? client.cars.length : '0' }} </td>
   </ng-container>
 
   <!-- Symbol Column -->
-  <ng-container matColumnDef="orders">
+  <ng-container matColumnDef="orders" class="mw25">
     <th mat-header-cell *matHeaderCellDef> Заказы </th>
     <td mat-cell *matCellDef="let client" (click)="getClient(client.phone)">Заказов: {{client.orders ? client.orders.length : '0' }} </td>
   </ng-container>
@@ -41,3 +41,5 @@
     <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
   </tr>
 </table>
+</ng-template>
+

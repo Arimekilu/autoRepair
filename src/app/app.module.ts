@@ -28,6 +28,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatTableModule} from "@angular/material/table";
 import {MatCardModule} from "@angular/material/card";
 import {AuthInterceptor} from "./interceptors/auth.inetceptor";
+import { ErrorComponent } from './errors/error/error.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -50,7 +51,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     CarComponent,
     HomePageComponent,
     CreateOrderComponent,
-    OrderComponent
+    OrderComponent,
+    ErrorComponent
   ],
     imports: [
         BrowserModule,

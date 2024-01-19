@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IJob} from "../interfaces";
-import {JobsService} from "../jobs.service";
+
 
 @Component({
   selector: 'app-job',
@@ -17,14 +17,9 @@ export class JobComponent implements OnInit {
     this.editing = false
   }
 
-  public delete(job: IJob) {
-    this.jobService.deleteJob(job).subscribe((res) => {
-      console.log(res)
-    })
 
-  }
 
-  constructor(private jobService: JobsService) {
+  constructor() {
   }
 
   ngOnInit(): void {

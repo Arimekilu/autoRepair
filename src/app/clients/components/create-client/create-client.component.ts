@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ClientsService} from "../../services/clients.service";
 import {ICar} from "../../interfaces";
+import {IError} from "../../../interfaces/error.interface";
 
 @Component({
   selector: 'app-create-client',
@@ -13,11 +14,8 @@ export class CreateClientComponent {
   createClientForm: FormGroup
   doneClient: boolean = false;
   doneCar: boolean = false;
-  error: undefined | {
-    code: string,
-    message: string
-  }
   car: ICar[] = []
+  error?: IError
 
 
   addCar(car: ICar) {

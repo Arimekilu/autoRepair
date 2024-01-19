@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {IJob} from "../interfaces";
 import {JobsService} from "../jobs.service";
-import {Router} from "@angular/router";
+
 
 
 @Component({
@@ -75,8 +75,21 @@ export class CreateJobComponent implements OnInit {
       (error) => {
         console.log(error)
       })
-
   }
+
+  public delete(job: IJob) {
+    if (confirm('Уверен?')) {
+      this.jobService.deleteJob(job).subscribe((res) => {
+        console.log(res)
+        this.createJobForm.reset()
+        this.IJob = undefined
+        this.jobService.getAllJobs()
+        this.addNewItem(job)
+      })
+    }
+  }
+
+
 
 
 }

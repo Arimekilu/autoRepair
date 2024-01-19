@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {IClient} from "../../interfaces";
 import {ClientsService} from "../../services/clients.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {IError} from "../../../interfaces/error.interface";
 
 @Component({
   selector: 'app-client',
@@ -10,12 +11,13 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class ClientComponent implements OnInit {
   @Input() client: IClient | undefined
-  short: boolean = true
   id?: string
   orderAdd: boolean = false
   showCars: boolean = false
   showOrders: boolean = false
   createOrder: boolean = false
+  loading: boolean = true
+  IError?: IError
 
   constructor(private clientsService: ClientsService, private route: ActivatedRoute, private router: Router) {
   }
@@ -45,9 +47,20 @@ export class ClientComponent implements OnInit {
         this.clientsService.getClientById(params["id"]).subscribe((res) => {
           this.client = res
           this.client.id = this.id
-          console.log('client by id', res)
+          this.loading = false
         })
-      })
+      },
+        (error) => {
+          console.log(error)
+          this.loading = false
+          this.IError = {
+            code: error.code,
+            message: error.message
+          }
+        },
+        () => {
+          this.loading = false
+        })
 
     }
   }
