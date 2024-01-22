@@ -4,7 +4,7 @@ import {FirebaseService} from "./fb/firebase.service";
 
 export const aboutGuard = () => {
   const authService = inject(FirebaseService);    // получаем сервис
-  return authService.isAuth
+  return authService.authObserve$
 };
 
 @Injectable({

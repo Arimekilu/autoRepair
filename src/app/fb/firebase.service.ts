@@ -45,13 +45,11 @@ export class FirebaseService {
 
     });
     authState(this.auth).subscribe(user => {
-      console.log('user', user)
-      this.isAuth = !!user;
     });
     this.authObserve$ = authState(this.auth)
     this.db = getDatabase(this.app);
     authState(this.auth).subscribe(user => {
-      console.log('authState')
+
     });
   }
 

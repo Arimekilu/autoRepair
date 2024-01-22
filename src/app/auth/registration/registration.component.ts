@@ -17,7 +17,7 @@ export class RegistrationComponent {
   regForm: FormGroup
   error: authError | undefined
 
-//TODO Перенести в сервис
+
   regNewUser(email: string, password: string) {
     createUserWithEmailAndPassword(this.fireBaseService.auth, email, password)
       .then((userCredential) => {
