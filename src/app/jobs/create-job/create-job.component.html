@@ -5,6 +5,11 @@
   </ng-template>
 
   <mat-form-field class="example-full-width">
+    <mat-label>Категория:</mat-label>
+    <input matInput placeholder="Описание" type="text" formControlName="type">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
     <mat-label>Описание</mat-label>
     <input matInput placeholder="Описание" type="text" formControlName="overview">
   </mat-form-field>
@@ -20,7 +25,7 @@
   </mat-form-field>
 
   <div *ngIf="!IJob; else redactJob">
-    <button mat-raised-button color="primary" (click)="redact($event)" [disabled]="createJobForm.invalid">Добавить
+    <button mat-raised-button color="primary" (click)="submit($event)" [disabled]="createJobForm.invalid">Добавить
       работу
     </button>
   </div>

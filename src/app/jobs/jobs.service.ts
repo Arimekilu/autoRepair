@@ -13,10 +13,17 @@ export class JobsService {
   }
 
   constructor(private http: HttpClient, private firebaseService: FirebaseService) {
+    this.getAllTypes().subscribe((res) => {
+      console.log('allTypes', res)
+    })
   }
 
   createJob(job: IJob): Observable<IJob> {
     return this.http.post<IJob>(`${this.firebaseService.firebaseConfig.databaseURL}/jobs.json`, job)
+  }
+
+  createType (type: string) {
+    return this.http.post<string>(`${this.firebaseService.firebaseConfig.databaseURL}/jobsTypes.json`, type)
   }
 
   redactJob (job: IJob) {
@@ -36,6 +43,12 @@ export class JobsService {
         }));
       })
     );
+  }
+  getAllTypes(): Observable<Object[]> {
+    return this.http.get(`${this.firebaseService.firebaseConfig.databaseURL}/jobsTypes.json`).pipe(
+      map(res => Object.values(res))
+    )
+
   }
 
 

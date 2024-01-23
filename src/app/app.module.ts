@@ -29,6 +29,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatCardModule} from "@angular/material/card";
 import {AuthInterceptor} from "./interceptors/auth.inetceptor";
 import { ErrorComponent } from './errors/error/error.component';
+import { CreateJobTypeComponent } from './jobs/create-job-type/create-job-type.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -52,7 +53,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     HomePageComponent,
     CreateOrderComponent,
     OrderComponent,
-    ErrorComponent
+    ErrorComponent,
+    CreateJobTypeComponent
   ],
     imports: [
         BrowserModule,

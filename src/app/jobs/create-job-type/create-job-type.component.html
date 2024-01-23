@@ -1,0 +1,9 @@
+<form class="container" [formGroup]="createJobTypeForm">
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Категория:</mat-label>
+    <input matInput placeholder="Описание" type="text" formControlName="type">
+  </mat-form-field>
+
+  <button mat-raised-button (click)="submit()">Добавить</button>
+</form>

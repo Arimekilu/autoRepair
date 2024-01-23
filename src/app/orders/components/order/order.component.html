@@ -1,5 +1,5 @@
 <div *ngIf="order">
-  <h3>{{order.date | date: "dd MMMM YYYY, ru-RU" }}</h3>
+  <h3>{{order.date | date: "dd MMMM YYYY" }}</h3>
   <p>Автомобиль: <strong>{{order.car.mark + ' ' + order.car.model }}</strong></p>
   <p>Пробег на момент выполнения: <strong>{{order.mileage}}км.</strong></p>
   <ol>
@@ -11,6 +11,6 @@
   <hr>
   <p>Всего работ: <strong>{{order.jobs.length}}</strong></p>
   <p>На сумму: {{totalPrise}}Р. <strong></strong></p>
-  <hr>
+  <hr *ngIf="order.comment">
   <p>{{order.comment}}</p>
 </div>

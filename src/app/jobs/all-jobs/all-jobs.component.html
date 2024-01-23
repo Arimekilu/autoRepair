@@ -2,6 +2,11 @@
 <mat-spinner *ngIf="loading && !IError; else loaded" class="loader"></mat-spinner>
 
 <ng-template #loaded>
+
+  <div *ngFor="let type of types">
+    <p>{{type}}</p>
+  </div>
+
 <div>
   <div *ngFor="let job of jobs$ | async">
     <app-job [job]="job"></app-job>

@@ -3,4 +3,5 @@ export interface IJob {
   price: number,
   comment?: string,
   id?: string
+  type?: string
 }

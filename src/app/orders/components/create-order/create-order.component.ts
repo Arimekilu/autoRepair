@@ -108,6 +108,9 @@ export class CreateOrderComponent implements OnInit {
     $event.preventDefault()
     const clientName = this.selectClientControl.value
     this.client = this.clients.find(client => client.name.toLowerCase() == clientName?.toLowerCase())
+     if (this.client?.cars.length === 1) {
+       this.selectedCar = this.client.cars[0]
+     }
   }
 
   addItem(newItem: ICar) {

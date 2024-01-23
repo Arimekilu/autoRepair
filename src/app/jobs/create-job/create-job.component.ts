@@ -26,7 +26,8 @@ export class CreateJobComponent implements OnInit {
     this.createJobForm = this.formBuilder.group({
       overview: new FormControl(null, [Validators.required]),
       price: new FormControl(null, [Validators.required]),
-      comment: new FormControl(null)
+      comment: new FormControl(null),
+      type: new FormControl(null)
     })
 
 
@@ -39,7 +40,8 @@ export class CreateJobComponent implements OnInit {
       this.createJobForm = this.formBuilder.group({
         overview: new FormControl(this.IJob.overview, [Validators.required]),
         price: new FormControl(this.IJob.price, [Validators.required]),
-        comment: new FormControl(this.IJob.comment ? this.IJob.comment : null)
+        comment: new FormControl(this.IJob.comment ? this.IJob.comment : null),
+        type: new FormControl(this.IJob.type ? this.IJob.type : null)
       })
     }
   }
@@ -48,6 +50,7 @@ export class CreateJobComponent implements OnInit {
   submit($event: MouseEvent) {
     $event.preventDefault()
     const job: IJob = this.createJobForm.value
+    console.log(job)
     this.jobService.createJob(job).subscribe((res) => {
         console.log('Success', res)
         this.createJobForm.reset()

@@ -57,7 +57,7 @@
   <hr>
   <mat-card-actions *ngIf="client.cars">
     <button mat-raised-button (click)="showCars = !showCars">
-      Автомобили: {{client.cars ? client.cars?.length : '0'}}</button>
+      Автомобили: {{client.cars ? client.cars.length : '0'}}</button>
   </mat-card-actions>
   <mat-card-actions *ngIf="!client.cars">
     <button mat-raised-button (click)="addCar = !addCar">Добавить автомобиль</button>
@@ -73,7 +73,7 @@
   </mat-card-content>
   <mat-card-actions *ngIf="client.orders">
     <button mat-raised-button (click)="showOrders = !showOrders">
-      Заказ-наряды: {{client.orders ? client.orders?.length : '0'}}</button>
+      Заказ-наряды: {{ client.orders.length || '0'}}</button>
   </mat-card-actions>
   <mat-card-content *ngIf="showOrders">
     <div class="flexCol">
@@ -89,7 +89,7 @@
     <button mat-raised-button color="warn" (click)="delete(client)">Удалить клиента</button>
   </mat-card-actions>
   <app-create-order *ngIf="createOrder" [client]="client"
-                    [car]="client.cars?.length === 1 ? client.cars[0] : undefined"></app-create-order>
+                    [car]="client.cars.length === 1 ? client.cars[0] : undefined"></app-create-order>
 </mat-card>
 
 
