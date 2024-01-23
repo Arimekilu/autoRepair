@@ -9,19 +9,20 @@ import {HomePageComponent} from "./home-page/home-page.component";
 import {AllClientsComponent} from "./clients/components/all-clients/all-clients.component";
 import {CreateOrderComponent} from "./orders/components/create-order/create-order.component";
 import {ClientComponent} from "./clients/components/client/client.component";
-import {aboutGuard} from "./guard.service";
+import {Guard} from "./guard.service";
+
 
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, pathMatch: "full"},
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
-  {path: 'createJob', component: CreateJobComponent, canActivate: [aboutGuard]},
-  {path: 'createClient', component: CreateClientComponent, canActivate: [aboutGuard]},
-  {path: 'jobs', component: AllJobsComponent, canActivate: [aboutGuard]},
-  {path: 'clients', component: AllClientsComponent, canActivate: [aboutGuard]},
-  {path: 'client/:id', component: ClientComponent, canActivate: [aboutGuard]},
-  {path: 'createOrder', component: CreateOrderComponent, canActivate: [aboutGuard]},
+  {path: 'createJob', component: CreateJobComponent, canActivate: [Guard]},
+  {path: 'createClient', component: CreateClientComponent, canActivate: [Guard]},
+  {path: 'jobs', component: AllJobsComponent, canActivate: [Guard]},
+  {path: 'clients', component: AllClientsComponent, canActivate: [Guard]},
+  {path: 'client/:id', component: ClientComponent, canActivate: [Guard]},
+  {path: 'createOrder', component: CreateOrderComponent, canActivate: [Guard]},
 
 ];
 

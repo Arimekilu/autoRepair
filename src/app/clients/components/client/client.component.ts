@@ -68,4 +68,6 @@ export class ClientComponent implements OnInit {
   orderAddToggle() {
     this.orderAdd = true
   }
+
+  protected readonly console = console;
 }

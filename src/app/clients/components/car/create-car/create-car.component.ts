@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ICar} from "../../../interfaces";
+import {ICar, IClient} from "../../../interfaces";
 
 @Component({
   selector: 'app-create-car',
@@ -8,7 +8,7 @@ import {ICar} from "../../../interfaces";
   styleUrls: ['./create-car.component.scss']
 })
 export class CreateCarComponent {
-
+  @Input() client?: IClient
   @Output() newCarEvent  = new EventEmitter<ICar>();
   newCarAdd(model: ICar){
     this.newCarEvent.emit(model);

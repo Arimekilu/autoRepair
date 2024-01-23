@@ -1,11 +1,16 @@
 import {inject, Injectable} from '@angular/core';
 import {FirebaseService} from "./fb/firebase.service";
+import {Observable} from "rxjs";
 
 
-export const aboutGuard = () => {
+
+
+export const Guard = (): Observable<boolean> => {
   const authService = inject(FirebaseService);    // получаем сервис
   return authService.authObserve$
 };
+
+
 
 @Injectable({
   providedIn: 'root'

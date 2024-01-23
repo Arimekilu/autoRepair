@@ -41,6 +41,7 @@ export class CreateClientComponent {
     } else {
       client.cars = []
     }
+    console.log(client)
     this.clientService.setClient(client).subscribe(
       (res) => {
         console.log('Клиент создан:', res)

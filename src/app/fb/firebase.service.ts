@@ -3,7 +3,7 @@ import {initializeApp} from "firebase/app";
 import {getDatabase} from 'firebase/database'
 import {createUserWithEmailAndPassword, getAuth, signOut} from "firebase/auth";
 import {authState} from "rxfire/auth";
-import {filter} from "rxjs";
+import {map, Observable} from "rxjs";
 import {FormGroup} from "@angular/forms";
 
 const firebaseConfig = {
@@ -23,10 +23,8 @@ export class FirebaseService {
   firebaseConfig
   app
   auth
-  loggedIn$
-  authObserve$
+  authObserve$: Observable<boolean>
   db
-  isAuth: boolean = false
   error?: Object
   constructor() {
     this.firebaseConfig = {
@@ -41,16 +39,15 @@ export class FirebaseService {
     this.app = initializeApp(firebaseConfig)
     this.auth = getAuth();
 
-    this.loggedIn$ = authState(this.auth).pipe(filter(user => !!user)).subscribe(user => {
+   authState(this.auth).subscribe(user => {
+     console.log(user)
+    })
 
-    });
-    authState(this.auth).subscribe(user => {
-    });
-    this.authObserve$ = authState(this.auth)
+    this.authObserve$ = authState(this.auth).pipe(
+      map(res => !!res)
+    )
     this.db = getDatabase(this.app);
-    authState(this.auth).subscribe(user => {
 
-    });
   }
 
   regNewUser(email: string, password: string, regForm: FormGroup) {

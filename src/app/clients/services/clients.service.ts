@@ -21,6 +21,10 @@ export class ClientsService {
     return this.http.post(`${this.firebaseService.firebaseConfig.databaseURL}/clients.json`, client)
   }
 
+  editClient(client: IClient) {
+    return this.http.put(`${this.firebaseService.firebaseConfig.databaseURL}/clients${client.id}.json`, client)
+  }
+
   getClientById (id: string): Observable<IClient> {
     // @ts-ignore
     return this.http.get(`${this.firebaseService.firebaseConfig.databaseURL}/clients/${id}.json`)
