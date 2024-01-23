@@ -3,6 +3,7 @@ import {JobsService} from "../jobs.service";
 import {Observable, of} from "rxjs";
 import {IJob} from "../interfaces";
 import {IError} from "../../interfaces/error.interface";
+import {FormControl} from "@angular/forms";
 
 interface jobsByTypes {
   [type: string]: IJob
@@ -24,6 +25,8 @@ export class AllJobsComponent implements OnInit {
   jobsByTypes: jobsByTypes[] = []
   types: string[] = []
   types$?: Observable<string[]>
+  selectedType = new FormControl
+
   constructor(private jobsService: JobsService) {
   }
 
@@ -70,4 +73,5 @@ export class AllJobsComponent implements OnInit {
     }
   }
 
+  protected readonly console = console;
 }

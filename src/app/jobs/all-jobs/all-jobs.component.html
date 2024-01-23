@@ -8,12 +8,13 @@
     <h4>Выберите категорию</h4>
     <mat-form-field>
       <mat-label>Категория работ</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let type of types$ | async" [value]="type" formControl="selectType">
+      <mat-select [formControl]="selectedType">
+        <mat-option *ngFor="let type of types$ | async" [value]="type" >
           {{type}}
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <button (click)="console.log(selectedType)">test</button>
   </div>
   <div>
     <div *ngFor="let job of jobs$ | async">
