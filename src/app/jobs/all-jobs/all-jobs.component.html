@@ -3,13 +3,21 @@
 
 <ng-template #loaded>
 
-  <div *ngFor="let type of types">
-    <p>{{type}}</p>
-  </div>
 
-<div>
-  <div *ngFor="let job of jobs$ | async">
-    <app-job [job]="job"></app-job>
+  <div>
+    <h4>Выберите категорию</h4>
+    <mat-form-field>
+      <mat-label>Категория работ</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let type of types$ | async" [value]="type" formControl="selectType">
+          {{type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-</div>
+  <div>
+    <div *ngFor="let job of jobs$ | async">
+      <app-job [job]="job"></app-job>
+    </div>
+  </div>
 </ng-template>

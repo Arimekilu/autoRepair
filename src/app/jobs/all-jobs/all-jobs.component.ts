@@ -23,9 +23,11 @@ export class AllJobsComponent implements OnInit {
   jobsTypes: string[] = []
   jobsByTypes: jobsByTypes[] = []
   types: string[] = []
-
+  types$?: Observable<string[]>
   constructor(private jobsService: JobsService) {
   }
+
+
 
   ngOnInit(): void {
     this.jobsService.allJobs$.subscribe((jobs) => {
@@ -48,6 +50,7 @@ export class AllJobsComponent implements OnInit {
       for (const obj of res) {
         this.types.push(Object.values(obj).toString())
       }
+      this.types$ = of(this.types)
     })
   }
 

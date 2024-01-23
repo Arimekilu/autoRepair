@@ -30,6 +30,7 @@ import {MatCardModule} from "@angular/material/card";
 import {AuthInterceptor} from "./interceptors/auth.inetceptor";
 import { ErrorComponent } from './errors/error/error.component';
 import { CreateJobTypeComponent } from './jobs/create-job-type/create-job-type.component';
+import {MatSelectModule} from "@angular/material/select";
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -56,22 +57,23 @@ const INTERCEPTOR_PROVIDER: Provider = {
     ErrorComponent,
     CreateJobTypeComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MatIconModule,
-        MatAutocompleteModule,
-        MatProgressSpinnerModule,
-        MatTableModule,
-        MatCardModule,
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatCardModule,
+    MatSelectModule,
 
 
-    ],
+  ],
   providers: [
     HttpClient,
     HttpClientModule,
