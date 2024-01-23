@@ -36,6 +36,15 @@ export class CreateOrderComponent implements OnInit {
   btnDisables: boolean = false
   orderCreated: boolean = false
 
+  addCar(car: ICar) {
+    if (this.client) {
+      this.selectedCar = car
+      if (!this.client.cars) {
+        this.client.cars = []
+      }
+      this.client.cars.push(car)
+    }
+  }
 
   constructor(private jobService: JobsService, private orderService: OrderService, private clientService: ClientsService) {
   }

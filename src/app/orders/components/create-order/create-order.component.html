@@ -36,13 +36,18 @@
         </mat-card-content>
       </mat-card>
 
-      <div *ngIf="!selectedCar; else selectedICar">
-        <strong>Выберите автомобиль:</strong>
-        <div *ngFor="let car of client?.cars">
-          <app-car [car]="car" (newItemEvent)="addItem($event)"></app-car>
+      <div *ngIf="client.cars; else createCar">
+        <div *ngIf="!selectedCar; else selectedICar">
+          <strong>Выберите автомобиль:</strong>
+          <div *ngFor="let car of client?.cars">
+            <app-car [car]="car" (newItemEvent)="addItem($event)"></app-car>
+          </div>
         </div>
       </div>
 
+      <ng-template #createCar>
+        <app-create-car (newCarEvent)="addCar($event)"></app-create-car>
+      </ng-template>
       <ng-template #selectedICar>
         <app-car [car]="selectedCar" [withButtons]="false"></app-car>
       </ng-template>

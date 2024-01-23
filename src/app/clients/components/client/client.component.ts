@@ -16,6 +16,7 @@ export class ClientComponent implements OnInit {
   showCars: boolean = false
   showOrders: boolean = false
   createOrder: boolean = false
+  addCar: boolean = false
   loading: boolean = true
   IError?: IError
 
@@ -24,32 +25,35 @@ export class ClientComponent implements OnInit {
 
   delete(client: IClient) {
     //TODO Переделать на модалку
-    confirm('Точно?')
-    {
-      this.clientsService.deleteClient(client).subscribe(
-        (res) => {
-          console.log('Клиент удален', res)
-          this.client = undefined
-          this.router.navigate(['clients'])
-        },
-        (error) => {
-          console.log(error)
-        }
-      )
+
+    if (confirm('Точно?')) {
+      {
+        this.clientsService.deleteClient(client).subscribe(
+          (res) => {
+            console.log('Клиент удален', res)
+            this.client = undefined
+            this.router.navigate(['clients'])
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
+      }
     }
+
   }
 
   ngOnInit(): void {
     if (!this.client) {
       this.route.params.subscribe((params) => {
-        console.log(params)
-        this.id = params["id"]
-        this.clientsService.getClientById(params["id"]).subscribe((res) => {
-          this.client = res
-          this.client.id = this.id
-          this.loading = false
-        })
-      },
+          console.log(params)
+          this.id = params["id"]
+          this.clientsService.getClientById(params["id"]).subscribe((res) => {
+            this.client = res
+            this.client.id = this.id
+            this.loading = false
+          })
+        },
         (error) => {
           console.log(error)
           this.loading = false
@@ -70,4 +74,5 @@ export class ClientComponent implements OnInit {
   }
 
   protected readonly console = console;
+
 }

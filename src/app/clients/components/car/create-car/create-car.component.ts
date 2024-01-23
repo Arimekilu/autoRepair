@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ICar, IClient} from "../../../interfaces";
+import {ClientsService} from "../../../services/clients.service";
+
 
 @Component({
   selector: 'app-create-car',
@@ -18,7 +20,7 @@ export class CreateCarComponent {
   car: ICar | undefined
   done: boolean = false
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private clientService: ClientsService) {
     this.createCarForm = this.formBuilder.group({
       mark: new FormControl(null, Validators.required),
       model: new FormControl(null, Validators.required),
@@ -32,6 +34,15 @@ export class CreateCarComponent {
 
   createCar() {
     const car: ICar = this.createCarForm.value
+    if (this.client) {
+      this.client.cars ? this.client.cars.push(car) : this.client.cars = [car]
+      this.clientService.editClient(this.client).subscribe((res) => {
+        console.log(res)
+      })
+
+    } else
     this.newCarAdd(car)
+    console.log(car)
+    this.createCarForm.reset()
   }
 }

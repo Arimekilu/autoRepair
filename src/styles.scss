@@ -21,6 +21,7 @@ body {
   border-radius: 20px;
   box-shadow: 1px 1px 3px #2D2D2DFF;
   padding: 20px;
+
   button {
     margin: 20px 0
   }
@@ -70,6 +71,7 @@ body {
   padding: 20px;
   vertical-align: center;
   margin: 20px auto;
+
   button {
     min-width: 60px;
     max-width: 200px;
@@ -79,7 +81,8 @@ body {
 .mw100 {
   max-width: 100%;
 }
-.mw25{
+
+.mw25 {
   max-width: 25%;
 }
 
@@ -116,5 +119,11 @@ body {
 }
 
 @media (min-width: 480px) {
+
+}
+
+.hover:hover {
+  background: #bebebe;
+  cursor: pointer;
 
 }
