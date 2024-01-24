@@ -19,24 +19,29 @@ interface jobsByTypes {
 export class AllJobsComponent implements OnInit {
   loading: boolean = true
   IError?: IError
-  jobs$: Observable<IJob[]> | undefined
-  jobsTypes$: Observable<string[]> | undefined
-  jobsTypes: string[] = []
-  jobsByTypes: jobsByTypes[] = []
-  types: string[] = []
-  types$?: Observable<string[]>
-  selectedType = new FormControl
+  jobs?: IJob[]
+  filteredJobs: IJob[] | undefined
+  types?: Set<string>
+  types$?: Observable<Set<string>>
+  selectType = new FormControl
+
 
   constructor(private jobsService: JobsService) {
   }
 
 
-
   ngOnInit(): void {
     this.jobsService.allJobs$.subscribe((jobs) => {
-        this.jobs$ = of(jobs)
-        this.sortByTypes(jobs)
-        this.jobsTypes$ = of(this.jobsTypes)
+        this.jobs = jobs
+        this.types = new Set
+        for (const job of jobs) {
+          if (job.type) {
+            console.log(job.type)
+            this.types.add(job.type)
+          }
+        }
+        this.types$ = of(this.types)
+        this.filteredJobs = jobs
         this.loading = false
       },
       (error) => {
@@ -44,34 +49,26 @@ export class AllJobsComponent implements OnInit {
           code: error.code,
           message: error.message
         }
-      },
-      () => {
-
       }
     )
-    this.jobsService.getAllTypes().subscribe((res) => {
-      for (const obj of res) {
-        this.types.push(Object.values(obj).toString())
-      }
-      this.types$ = of(this.types)
-    })
   }
 
+  filterJobsByType($event: MouseEvent) {
 
-  sortByTypes(jobs: IJob[]) {
-    for (let job of jobs) {
-      if (job.type) {
-        const type = job.type.toLowerCase()
-        const jobWithType = {[type]: job}
-        this.jobsByTypes.push(jobWithType)
-      } else {
-        const type = 'Без категории'
-        const jobWithType = {[type]: job}
-        this.jobsByTypes.push(jobWithType)
-      }
-      this.jobsByTypes.sort()
+    // @ts-ignore
+    const type: string | undefined = $event.target.outerText
+
+    if (type === 'Все категории') {
+      console.log(type === 'Все категории')
+      this.filteredJobs = this.jobs
+      console.log(this.filteredJobs)
+      console.log('Все категории')
+    } else if (type === 'Без категории') {
+      this.filteredJobs = this.jobs?.filter(job => !('type' in job))
+    } else if (type !== 'Без категории' && type) {
+      this.filteredJobs = this.jobs?.filter(job => job.type?.toLowerCase() === type.toLowerCase())
     }
   }
 
-  protected readonly console = console;
+
 }

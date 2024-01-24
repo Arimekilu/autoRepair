@@ -14,7 +14,7 @@ export class JobsService {
 
   constructor(private http: HttpClient, private firebaseService: FirebaseService) {
     this.getAllTypes().subscribe((res) => {
-      console.log('allTypes', res)
+
     })
   }
 

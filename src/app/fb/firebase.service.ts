@@ -40,7 +40,7 @@ export class FirebaseService {
     this.auth = getAuth();
 
    authState(this.auth).subscribe(user => {
-     console.log(user)
+     
     })
 
     this.authObserve$ = authState(this.auth).pipe(
