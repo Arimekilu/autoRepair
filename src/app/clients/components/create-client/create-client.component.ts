@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ClientsService} from "../../services/clients.service";
-import {ICar} from "../../interfaces";
+import {ICar, IClient} from "../../interfaces";
 import {IError} from "../../../interfaces/error.interface";
 
 @Component({
@@ -9,7 +9,8 @@ import {IError} from "../../../interfaces/error.interface";
   templateUrl: './create-client.component.html',
   styleUrls: ['./create-client.component.scss']
 })
-export class CreateClientComponent {
+export class CreateClientComponent implements OnInit{
+  @Input()client?: IClient
   createCar: boolean = false
   createClientForm: FormGroup
   doneClient: boolean = false;
@@ -27,9 +28,19 @@ export class CreateClientComponent {
   constructor(private formBuilder: FormBuilder, private clientService: ClientsService) {
     this.createClientForm = this.formBuilder.group({
       name: new FormControl(null, [Validators.required]),
-      phone: new FormControl('+7', [Validators.required, Validators.minLength(10)]),
+      phone: new FormControl('+7', [Validators.required, Validators.minLength(12), Validators.maxLength(12)]),
       comment: new FormControl(null)
     })
+  }
+
+  ngOnInit(): void {
+    if (this.client) {
+      this.createClientForm = this.formBuilder.group({
+        name: new FormControl(this.client.name, [Validators.required]),
+        phone: new FormControl(this.client.phone, [Validators.required, Validators.minLength(12), Validators.maxLength(12)]),
+        comment: new FormControl(this.client.comment)
+      })
+    }
   }
 
   createClient($event: MouseEvent) {
@@ -56,4 +67,22 @@ export class CreateClientComponent {
       }
     )
   }
+
+  editClient ($event: MouseEvent) {
+    $event.preventDefault()
+    if (this.client && this.client.id) {
+      const clientForEdit: IClient = this.createClientForm.value
+      clientForEdit.id = this.client.id
+      clientForEdit.cars = this.client.cars
+      clientForEdit.orders = this.client.orders
+      this.clientService.editClient(clientForEdit).subscribe((res) => {
+        console.log(res)
+        this.doneClient = true
+        this.createClientForm.reset()
+      })
+    }
+  }
+
+
+
 }

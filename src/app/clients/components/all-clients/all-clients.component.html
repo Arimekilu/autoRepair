@@ -8,7 +8,7 @@
       <input matInput (keyup)="applyFilter($event)" placeholder="Введите ФИО или телефон" #input>
     </mat-form-field>
   </div>
-
+<div class="mw100">
   <table mat-table *ngIf="dataSource" [dataSource]="dataSource" class="mat-elevation-z8 mw100">
 
     <ng-container matColumnDef="phone" class="mw25">
@@ -44,5 +44,6 @@
       <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
   </table>
+</div>
 </ng-template>
 

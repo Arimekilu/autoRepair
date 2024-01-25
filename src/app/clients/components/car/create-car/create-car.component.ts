@@ -11,8 +11,9 @@ import {ClientsService} from "../../../services/clients.service";
 })
 export class CreateCarComponent {
   @Input() client?: IClient
-  @Output() newCarEvent  = new EventEmitter<ICar>();
-  newCarAdd(model: ICar){
+  @Output() newCarEvent = new EventEmitter<ICar>();
+
+  newCarAdd(model: ICar) {
     this.newCarEvent.emit(model);
   }
 
@@ -36,13 +37,13 @@ export class CreateCarComponent {
     const car: ICar = this.createCarForm.value
     if (this.client) {
       this.client.cars ? this.client.cars.push(car) : this.client.cars = [car]
-      this.clientService.editClient(this.client).subscribe((res) => {
-        console.log(res)
+      this.clientService.editClient(this.client).subscribe(() => {
       })
-
     } else
-    this.newCarAdd(car)
-    console.log(car)
+      this.newCarAdd(car)
     this.createCarForm.reset()
   }
+
+
+
 }

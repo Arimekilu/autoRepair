@@ -11,7 +11,7 @@
   <div *ngIf="withButtons">
   <mat-card-actions *ngIf="openInClient; else openInOrder">
     <button mat-raised-button>Редактировать</button>
-    <button mat-raised-button >Удалить</button>
+    <button mat-raised-button color="warn" (click)="deleteCar(car)" >Удалить</button>
   </mat-card-actions>
   <ng-template #openInOrder>
     <mat-card-actions #openInOrder>

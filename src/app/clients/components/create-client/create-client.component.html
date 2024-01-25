@@ -1,5 +1,10 @@
 <form class="container" [formGroup]="createClientForm">
-  <h3>Создать клиента</h3>
+
+  <h3 *ngIf="!client; else editClientH">Создать клиента</h3>
+  <ng-template #editClientH>
+    <h3>Редактирование клиента</h3>
+  </ng-template>
+
 
   <mat-form-field class="example-full-width">
     <mat-label>ФИО</mat-label>
@@ -30,16 +35,23 @@
     <button mat-raised-button (click)="doneCar = false; createCar = false">Ок</button>
   </div>
 
-  <div>
+  <div *ngIf="!client; else editClientBtn">
     <button mat-raised-button color="primary" [disabled]="createClientForm.invalid" (click)="createClient($event)">
       Создать клиента
     </button>
   </div>
 
+  <ng-template #editClientBtn>
+    <button mat-raised-button color="primary" [disabled]="createClientForm.invalid" (click)="editClient($event)">
+      Редактировать клиента
+    </button>
+  </ng-template>
+
 </form>
 
 <div class="success" *ngIf="doneClient">
-  <p>Клиент создан</p>
+  <p *ngIf="!client">Клиент создан</p>
+  <p *ngIf = 'client'>Клиент изменен </p>
   <button mat-raised-button (click)="doneClient = false">Ок</button>
 </div>
 

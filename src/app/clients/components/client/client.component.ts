@@ -17,6 +17,7 @@ export class ClientComponent implements OnInit {
   showOrders: boolean = false
   createOrder: boolean = false
   addCar: boolean = false
+  editClient: boolean = false
   loading: boolean = true
   IError?: IError
 

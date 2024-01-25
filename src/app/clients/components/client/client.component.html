@@ -18,7 +18,7 @@
   <app-create-car [client]="client" *ngIf="addCar"></app-create-car>
   <mat-card-content *ngIf="showCars">
 
-    <app-car *ngFor="let car of client.cars" [car]="car" [openInClient]="true"></app-car>
+    <app-car *ngFor="let car of client.cars" [car]="car" [client]="client" [openInClient]="true"></app-car>
     <mat-card-actions>
       <button mat-raised-button (click)="addCar = !addCar">Добавить автомобиль</button>
     </mat-card-actions>
@@ -39,10 +39,14 @@
     <button mat-raised-button (click)="createOrder = !createOrder">Добавить заказ-наряд</button>
   </mat-card-actions>
   <mat-card-actions>
+    <button mat-raised-button (click)="editClient = !editClient">Редактировать клиента</button>
+  </mat-card-actions>
+  <mat-card-actions>
     <button mat-raised-button color="warn" (click)="delete(client)">Удалить клиента</button>
   </mat-card-actions>
   <app-create-order *ngIf="createOrder" [client]="client"
                     [car]="client.cars.length === 1 ? client.cars[0] : undefined"></app-create-order>
+  <app-create-client *ngIf="editClient" [client]="client"></app-create-client>
 </mat-card>
 
 
