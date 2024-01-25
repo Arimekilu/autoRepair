@@ -5,6 +5,7 @@ import {createUserWithEmailAndPassword, getAuth, signOut} from "firebase/auth";
 import {authState} from "rxfire/auth";
 import {map, Observable} from "rxjs";
 import {FormGroup} from "@angular/forms";
+import {Router} from "@angular/router";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCeefMV0_PXkd_GeFyepWdCMrTbdtwU4R0",
@@ -26,7 +27,7 @@ export class FirebaseService {
   authObserve$: Observable<boolean>
   db
   error?: Object
-  constructor() {
+  constructor(private router: Router) {
     this.firebaseConfig = {
       apiKey: "AIzaSyCeefMV0_PXkd_GeFyepWdCMrTbdtwU4R0",
       authDomain: "autorepair-c20c6.firebaseapp.com",
@@ -40,7 +41,7 @@ export class FirebaseService {
     this.auth = getAuth();
 
    authState(this.auth).subscribe(user => {
-     
+
     })
 
     this.authObserve$ = authState(this.auth).pipe(
@@ -73,6 +74,7 @@ export class FirebaseService {
   logout() {
     signOut(this.auth).then(() => {
       console.log('Пользователь вышел')
+      this.router.navigate([''])
       // Sign-out successful.
     }).catch((error) => {
       // An error happened.

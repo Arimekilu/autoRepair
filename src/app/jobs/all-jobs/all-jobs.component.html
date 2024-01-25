@@ -4,7 +4,7 @@
 <ng-template #loaded>
 
 
-  <div>
+  <div class="container">
     <h4>Выберите категорию</h4>
     <mat-form-field>
       <mat-label>Категория работ</mat-label>
@@ -17,8 +17,27 @@
       </mat-select>
     </mat-form-field>
   </div>
+
+  <form class="container">
+    <h4>Поиск работ</h4>
+    <mat-form-field>
+      <mat-label>Поиск по названию</mat-label>
+      <input type="text"
+             placeholder="Введите название"
+             aria-label="Поиск по названию"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let job of filteredOptions | async" [value]="job.overview">
+          {{job.overview}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+
   <div>
-    <div *ngFor="let job of filteredJobs">
+    <div *ngFor="let job of filteredJobs" class="card">
       <app-job [job]="job"></app-job>
     </div>
   </div>

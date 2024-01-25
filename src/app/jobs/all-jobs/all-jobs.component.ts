@@ -1,13 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {JobsService} from "../jobs.service";
-import {Observable, of} from "rxjs";
+import {map, Observable, of, startWith} from "rxjs";
 import {IJob} from "../interfaces";
 import {IError} from "../../interfaces/error.interface";
 import {FormControl} from "@angular/forms";
 
-interface jobsByTypes {
-  [type: string]: IJob
-}
+
 
 @Component({
   selector: 'app-all-jobs',
@@ -24,6 +22,8 @@ export class AllJobsComponent implements OnInit {
   types?: Set<string>
   types$?: Observable<Set<string>>
   selectType = new FormControl
+  filteredOptions?: Observable<IJob[] | undefined>;
+  myControl = new FormControl('');
 
 
   constructor(private jobsService: JobsService) {
@@ -51,6 +51,12 @@ export class AllJobsComponent implements OnInit {
         }
       }
     )
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+
   }
 
   filterJobsByType($event: MouseEvent) {
@@ -68,7 +74,17 @@ export class AllJobsComponent implements OnInit {
     } else if (type !== 'Без категории' && type) {
       this.filteredJobs = this.jobs?.filter(job => job.type?.toLowerCase() === type.toLowerCase())
     }
+
+    this.filteredOptions = of(this.filteredJobs)
+
   }
 
-
+  private _filter(value: string): IJob[] | undefined {
+    const filterValue = value.toLowerCase();
+    if (this.filteredJobs) {
+      const filteredByOverview = this.filteredJobs.filter(job => job.overview.toLowerCase().includes(filterValue));
+      this.filteredJobs = filteredByOverview
+      return filteredByOverview
+    } else return undefined
+  }
 }
