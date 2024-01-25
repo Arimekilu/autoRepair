@@ -1,10 +1,12 @@
 <nav>
   <div *ngIf="authObserve$ | async; else noNavigate">
-    <button mat-raised-button color="primary" routerLink="createClient">Добавить клиента</button>
-    <button mat-raised-button color="primary" routerLink="clients">Клиенты</button>
-    <button mat-raised-button color="primary" routerLink="createOrder">Добавить заказ-наряд</button>
-    <button mat-raised-button color="primary" routerLink="createJob">Добавить работу</button>
-    <button mat-raised-button color="primary" routerLink="jobs">Работы</button>
+    <a routerLink="createClient" routerLinkActive="active">Добавить клиента
+    </a>
+    <a routerLink="clients" routerLinkActive="active">Клиенты</a>
+    <a routerLink="createOrder" routerLinkActive="active">Добавить заказ-наряд
+    </a>
+    <a routerLink="createJob" routerLinkActive="active">Добавить работу</a>
+    <a routerLink="jobs" routerLinkActive="active">Работы</a>
   </div>
   <ng-template #noNavigate>
     <div>

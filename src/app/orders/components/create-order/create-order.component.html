@@ -4,28 +4,29 @@
 <ng-template #loaded>
 
   <div class="container">
+    <div>
+      <form *ngIf="!client"  class="card">
+        <mat-form-field class="example-full-width">
+          <mat-label>Выберите клиента</mat-label>
+          <input type="text"
+                 placeholder="Выберите клиента"
+                 aria-label="Выберите клиента"
+                 matInput
+                 [formControl]="selectClientControl"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <div class="m0auto">
+          <button mat-raised-button (click)="selectClient($event)">Выбрать клиента</button>
+        </div>
+      </form>
+    </div>
 
-    <form *ngIf="!client">
-      <mat-form-field class="example-full-width">
-        <mat-label>Выберите клиента</mat-label>
-        <input type="text"
-               placeholder="Выберите клиента"
-               aria-label="Выберите клиента"
-               matInput
-               [formControl]="selectClientControl"
-               [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <div>
-        <button mat-raised-button (click)="selectClient($event)">Выбрать клиента</button>
-      </div>
-    </form>
-
-    <div *ngIf="client">
+    <div *ngIf="client" class="card">
       <mat-card class="example-card" *ngIf="client">
         <mat-card-header>
           <mat-card-title>{{client.name}}</mat-card-title>
@@ -36,8 +37,8 @@
         </mat-card-content>
       </mat-card>
 
-      <div *ngIf="client.cars; else createCar">
-        <div *ngIf="!selectedCar; else selectedICar">
+      <div *ngIf="client.cars; else createCar" >
+        <div *ngIf="!selectedCar; else selectedICar" >
           <strong>Выберите автомобиль:</strong>
           <div *ngFor="let car of client?.cars">
             <app-car [car]="car" (newItemEvent)="addItem($event)"></app-car>
@@ -56,7 +57,7 @@
     </div>
 
     <div>
-      <form class="example-form">
+      <form class="card">
         <mat-form-field class="example-full-width">
           <mat-label>Добавьте работы</mat-label>
           <input type="text"
@@ -71,11 +72,14 @@
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
+        <div class="m0auto">
+        <button mat-raised-button (click)="addJob($event)" >Добавить</button>
+        </div>
       </form>
-      <button mat-raised-button (click)="addJob($event)">Добавить</button>
+
     </div>
 
-    <div *ngIf="jobsToOrder.length > 0">
+    <div *ngIf="jobsToOrder.length > 0" class="card">
       <strong>Выбранные работы:</strong>
 
       <div *ngFor="let job of jobsToOrder">
@@ -86,20 +90,22 @@
       <p>На сумму: <strong>{{totalPrise}}Р.</strong></p>
     </div>
 
-    <form>
-      <div>
-        <mat-form-field class="example-full-width">
-          <mat-label>Текущий пробег</mat-label>
-          <input matInput placeholder="Текущий пробег" type="number" [formControl]="nowMileageControl">
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field class="example-full-width">
-          <mat-label>Комментарии</mat-label>
-          <textarea matInput placeholder="Комментарии к заказ-наряду" [formControl]="orderCommentControl"></textarea>
-        </mat-form-field>
-      </div>
-    </form>
+    <div>
+      <form>
+        <div  class="card">
+          <mat-form-field class="example-full-width">
+            <mat-label>Текущий пробег</mat-label>
+            <input matInput placeholder="Текущий пробег" type="number" [formControl]="nowMileageControl">
+          </mat-form-field>
+        </div>
+        <div  class="card">
+          <mat-form-field class="example-full-width">
+            <mat-label>Комментарии</mat-label>
+            <textarea matInput placeholder="Комментарии к заказ-наряду" [formControl]="orderCommentControl"></textarea>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
     <div>
       <button mat-raised-button color="primary"
               [disabled]="(!selectedCar || !client || jobsToOrder.length === 0 || btnDisables)"
