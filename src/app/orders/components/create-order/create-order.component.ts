@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {JobsService} from "../../../jobs/jobs.service";
 import {OrderService} from "../../order.service";
-import {map, Observable, startWith} from "rxjs";
+import {map, Observable, of, startWith} from "rxjs";
 import {IJob} from "../../../jobs/interfaces";
 import {ICar, IClient, IOrder} from "../../../clients/interfaces";
 import {FormControl, Validators} from "@angular/forms";
@@ -24,7 +24,9 @@ export class CreateOrderComponent implements OnInit {
   options: string[] = [];
   jobsOptions: string[] = []
   filteredOptions?: Observable<string[]>;
-  filteredJobs?: Observable<string[]>;
+  filteredJobs?: Observable<IJob[] | undefined>;
+  filteredJobsByType?: IJob[]
+  filteredJobsByType$?: Observable<IJob[] | undefined>
   selectJobControl = new FormControl('');
   loading: boolean = true
   selectedCar?: ICar
@@ -35,6 +37,10 @@ export class CreateOrderComponent implements OnInit {
   totalPrise: number = 0
   btnDisables: boolean = false
   orderCreated: boolean = false
+  selectType = new FormControl
+  filteredJObs?: Observable<IJob[] | undefined>;
+  types?: Set<string>
+  types$?: Observable<Set<string>>
 
   addCar(car: ICar) {
     if (this.client) {
@@ -52,6 +58,16 @@ export class CreateOrderComponent implements OnInit {
   ngOnInit(): void {
     this.jobService.allJobs$.subscribe((res => {
       this.jobs = res
+      this.filteredJobsByType = res
+      this.filteredJobsByType$ = of(res)
+      this.types = new Set
+      for (const job of this.jobs) {
+        if (job.type) {
+          console.log(job.type)
+          this.types.add(job.type)
+        }
+      }
+      this.types$ = of(this.types)
       for (let job of res) {
         this.jobsOptions.push(job.overview)
       }
@@ -88,9 +104,28 @@ export class CreateOrderComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  private _filterJob(value: string): string[] {
+  private _filterJob(value: string): IJob[] | undefined {
     const filterValue = value.toLowerCase();
-    return this.jobsOptions.filter(option => option.toLowerCase().includes(filterValue));
+    return this.filteredJobsByType?.filter(option => option.overview.toLowerCase().includes(filterValue));
+  }
+
+  filterJobsByType($event: MouseEvent) {
+    // @ts-ignore
+    const type: string | undefined = $event.target.outerText
+
+    if (type === 'Все категории') {
+      console.log(type === 'Все категории')
+      this.filteredJobsByType = this.jobs
+      console.log(this.filteredJobs)
+      console.log('Все категории')
+    } else if (type === 'Без категории') {
+      this.filteredJobsByType = this.jobs?.filter(job => !('type' in job))
+    } else if (type !== 'Без категории' && type) {
+      this.filteredJobsByType = this.jobs?.filter(job => job.type?.toLowerCase() === type.toLowerCase())
+    }
+
+    this.filteredJobsByType$ = of(this.filteredJobsByType)
+
   }
 
   addJob($event: MouseEvent) {

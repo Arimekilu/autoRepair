@@ -5,7 +5,7 @@
 
   <div class="container">
     <div>
-      <form *ngIf="!client"  class="card">
+      <form *ngIf="!client" class="card">
         <mat-form-field class="example-full-width">
           <mat-label>Выберите клиента</mat-label>
           <input type="text"
@@ -37,8 +37,8 @@
         </mat-card-content>
       </mat-card>
 
-      <div *ngIf="client.cars; else createCar" >
-        <div *ngIf="!selectedCar; else selectedICar" >
+      <div *ngIf="client.cars; else createCar">
+        <div *ngIf="!selectedCar; else selectedICar">
           <strong>Выберите автомобиль:</strong>
           <div *ngFor="let car of client?.cars">
             <app-car [car]="car" (newItemEvent)="addItem($event)"></app-car>
@@ -57,7 +57,22 @@
     </div>
 
     <div>
-      <form class="card">
+      <h3>Работы</h3>
+      <div class="card">
+        <h4>Выберите категорию</h4>
+        <mat-form-field>
+          <mat-label>Категория работ</mat-label>
+          <mat-select [formControl]="selectType">
+            <mat-option (click)="filterJobsByType($event)" value="Все категории">Все категории</mat-option>
+            <mat-option (click)="filterJobsByType($event)" value="Без категории">Без категории</mat-option>
+            <mat-option *ngFor="let type of types$ | async" (click)="filterJobsByType($event)" [value]="type">
+              {{type}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <form class="card" *ngIf="filteredJobs">
         <mat-form-field class="example-full-width">
           <mat-label>Добавьте работы</mat-label>
           <input type="text"
@@ -66,14 +81,15 @@
                  matInput
                  [formControl]="selectJobControl"
                  [matAutocomplete]="auto">
+
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredJobs | async" [value]="option">
-              {{option}}
+            <mat-option *ngFor="let job of filteredJobsByType$ | async" [value]="job.overview">
+              {{job.overview}}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
         <div class="m0auto">
-        <button mat-raised-button (click)="addJob($event)" >Добавить</button>
+          <button mat-raised-button (click)="addJob($event)">Добавить</button>
         </div>
       </form>
 
@@ -92,13 +108,13 @@
 
     <div>
       <form>
-        <div  class="card">
+        <div class="card">
           <mat-form-field class="example-full-width">
             <mat-label>Текущий пробег</mat-label>
             <input matInput placeholder="Текущий пробег" type="number" [formControl]="nowMileageControl">
           </mat-form-field>
         </div>
-        <div  class="card">
+        <div class="card">
           <mat-form-field class="example-full-width">
             <mat-label>Комментарии</mat-label>
             <textarea matInput placeholder="Комментарии к заказ-наряду" [formControl]="orderCommentControl"></textarea>

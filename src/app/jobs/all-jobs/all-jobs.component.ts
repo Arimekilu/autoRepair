@@ -36,7 +36,6 @@ export class AllJobsComponent implements OnInit {
         this.types = new Set
         for (const job of jobs) {
           if (job.type) {
-            console.log(job.type)
             this.types.add(job.type)
           }
         }
