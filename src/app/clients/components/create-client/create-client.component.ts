@@ -38,7 +38,7 @@ export class CreateClientComponent implements OnInit{
       this.createClientForm = this.formBuilder.group({
         name: new FormControl(this.client.name, [Validators.required]),
         phone: new FormControl(this.client.phone, [Validators.required, Validators.minLength(12), Validators.maxLength(12)]),
-        comment: new FormControl(this.client.comment)
+        comment: new FormControl(this.client.comment || null)
       })
     }
   }

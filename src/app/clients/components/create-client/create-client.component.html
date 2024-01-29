@@ -21,14 +21,14 @@
     <input matInput placeholder="Введите комментарии" type="text" formControlName="comment">
   </mat-form-field>
 
-  <div>
+  <div *ngIf="!client">
     <button mat-raised-button (click)="createCar = !createCar">Добавить автомобиль
       <span *ngIf="!createCar">&#709;</span>
       <span *ngIf="createCar">&#708;</span>
     </button>
   </div>
 
-  <app-create-car *ngIf="createCar" (newCarEvent)="addCar($event)"></app-create-car>
+  <app-create-car *ngIf="createCar && !client" (newCarEvent)="addCar($event)"></app-create-car>
 
   <div class="success" *ngIf="doneCar">
     <p>Автомобиль добавлен {{car[(car.length - 1)].mark}} {{car[(car.length - 1)].model}}</p>

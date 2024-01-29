@@ -36,12 +36,18 @@
   </mat-form-field>
 
 
-
   <div class="success" *ngIf="done">
     <p>Автомобиль добавлен</p>
     <button mat-raised-button (click)="done = false">Ок</button>
   </div>
 
 </form>
-<button mat-raised-button color="primary" [disabled]="createCarForm.invalid" (click)="createCar()">Добавить автомобиль
+<button *ngIf="!carForEdit; else editCar" mat-raised-button color="primary" [disabled]="createCarForm.invalid"
+        (click)="createCar()">Добавить автомобиль
 </button>
+
+<ng-template #editCar>
+  <button mat-raised-button color="primary" [disabled]="createCarForm.invalid" (click)="createCar()">Редактировать
+    автомобиль
+  </button>
+</ng-template>

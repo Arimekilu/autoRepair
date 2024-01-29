@@ -14,6 +14,7 @@ export class CarComponent {
   @Input()openInClient: boolean = false
   @Input()withButtons?: boolean = true
   @Output() newItemEvent = new EventEmitter<ICar>();
+  edit: boolean = false
 
   constructor(private clientService: ClientsService ) {
   }

@@ -10,9 +10,11 @@
   </mat-card-content>
   <div *ngIf="withButtons">
   <mat-card-actions *ngIf="openInClient; else openInOrder">
-    <button mat-raised-button>Редактировать</button>
+    <button mat-raised-button (click)="edit = !edit">Редактировать</button>
     <button mat-raised-button color="warn" (click)="deleteCar(car)" >Удалить</button>
   </mat-card-actions>
+
+    <app-create-car [client]="client" [carForEdit]="car" *ngIf="edit"></app-create-car>
   <ng-template #openInOrder>
     <mat-card-actions #openInOrder>
       <button mat-raised-button (click)="addNewItem(car)">Выбрать</button>
