@@ -49,7 +49,7 @@ export class AllClientsComponent implements OnInit {
 
   }
 
-  displayedColumns: string[] = ['phone', 'name', 'cars', 'orders'];
+  displayedColumns: string[] = ['phone', 'name', 'orders'];
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
