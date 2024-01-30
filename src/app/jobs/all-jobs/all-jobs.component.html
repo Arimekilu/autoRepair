@@ -12,7 +12,7 @@
         <mat-option (click)="filterJobsByType($event)" value="Все категории">Все категории</mat-option>
         <mat-option (click)="filterJobsByType($event)" value="Без категории">Без категории</mat-option>
         <mat-option *ngFor="let type of types$ | async" (click)="filterJobsByType($event)" [value]="type" >
-          {{type}}
+          {{type | uppercase}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -36,7 +36,7 @@
     </mat-form-field>
   </form>
 
-  <div class="container">
+  <div class="container" >
     <div *ngFor="let job of filteredJobs">
       <app-job [job]="job"></app-job>
     </div>

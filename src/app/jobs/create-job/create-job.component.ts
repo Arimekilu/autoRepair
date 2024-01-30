@@ -4,7 +4,6 @@ import {IJob} from "../interfaces";
 import {JobsService} from "../jobs.service";
 
 
-
 @Component({
   selector: 'app-create-job',
   templateUrl: './create-job.component.html',
@@ -57,18 +56,18 @@ export class CreateJobComponent implements OnInit {
         this.jobService.createJob(job)
       }
       this.addNewItem(job)
+    } else {
+      const job: IJob = this.createJobForm.value
+      console.log(job)
+      this.jobService.createJob(job).subscribe((res) => {
+          console.log('Success', res)
+          this.createJobForm.reset()
+          this.done = true
+        },
+        (error) => {
+          console.log(error)
+        })
     }
-
-    const job: IJob = this.createJobForm.value
-    console.log(job)
-    this.jobService.createJob(job).subscribe((res) => {
-        console.log('Success', res)
-        this.createJobForm.reset()
-        this.done = true
-      },
-      (error) => {
-        console.log(error)
-      })
   }
 
   redact($event: MouseEvent) {
@@ -101,8 +100,6 @@ export class CreateJobComponent implements OnInit {
       })
     }
   }
-
-
 
 
 }
