@@ -41,6 +41,7 @@ export class CreateOrderComponent implements OnInit {
   filteredJObs?: Observable<IJob[] | undefined>;
   types?: Set<string>
   types$?: Observable<Set<string>>
+  addNewJob: boolean = false
 
   addCar(car: ICar) {
     if (this.client) {
@@ -50,6 +51,11 @@ export class CreateOrderComponent implements OnInit {
       }
       this.client.cars.push(car)
     }
+  }
+
+  newJob (job: IJob) {
+    this.jobsToOrder.push(job)
+    this.totalPrise += job.price
   }
 
   constructor(private jobService: JobsService, private orderService: OrderService, private clientService: ClientsService) {
@@ -64,7 +70,7 @@ export class CreateOrderComponent implements OnInit {
       for (const job of this.jobs) {
         if (job.type) {
           console.log(job.type)
-          this.types.add(job.type)
+          this.types.add(job.type.toLowerCase())
         }
       }
       this.types$ = of(this.types)

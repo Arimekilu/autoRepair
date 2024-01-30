@@ -1,5 +1,6 @@
 
-<mat-card class="example-card" *ngIf="client">
+<div class="m0auto mw25">
+<mat-card  *ngIf="client">
   <mat-card-header>
     <mat-card-title>{{client.name}}</mat-card-title>
     <mat-card-subtitle>{{client.phone}}</mat-card-subtitle>
@@ -49,5 +50,5 @@
   <app-create-client *ngIf="editClient" [client]="client"></app-create-client>
 </mat-card>
 
-
+</div>
 

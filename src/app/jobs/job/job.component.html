@@ -1,4 +1,4 @@
-
+<div class="card">
 <mat-card class="example-card" *ngIf="job && !editing; else edit" >
   <mat-card-header>
     <mat-card-title>{{job.overview}}</mat-card-title>
@@ -13,7 +13,7 @@
 </mat-card>
 
 <ng-template #edit>
-  <app-create-job [IJob]="job" (newItemEvent)="addItem($event)"></app-create-job>
+  <app-create-job [IJob]="job" (newJobEvent)="addItem($event)"></app-create-job>
 </ng-template>
+</div>
 
-<hr>

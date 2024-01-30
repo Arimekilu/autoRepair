@@ -1,4 +1,4 @@
-<form class="container" [formGroup]="createJobForm" (click)="done = false">
+<form class="container card" [formGroup]="createJobForm" (click)="done = false">
   <h3 *ngIf="!IJob; else edit">Добавление работ</h3>
   <ng-template #edit>
     <h3>Редактирование работ</h3>
@@ -24,22 +24,23 @@
     <input matInput placeholder="Комментарий" type="text" formControlName="comment">
   </mat-form-field>
 
-  <div *ngIf="!IJob; else redactJob">
-    <button mat-raised-button color="primary" (click)="submit($event)" [disabled]="createJobForm.invalid">Добавить
-      работу
-    </button>
-  </div>
-
-  <ng-template #redactJob>
-    <div>
-      <button mat-raised-button color="primary" (click)="redact($event)" [disabled]="createJobForm.invalid">Изменить
+  <div class="m0auto">
+    <div *ngIf="!IJob; else redactJob">
+      <button mat-raised-button color="primary" (click)="submit($event)" [disabled]="createJobForm.invalid">Добавить
+        работу
       </button>
     </div>
-    <div>
-      <button mat-raised-button color="warn" *ngIf="IJob" (click)="delete(IJob)">Удалить</button>
-    </div>
 
-  </ng-template>
+    <ng-template #redactJob>
+      <div>
+        <button mat-raised-button color="primary" (click)="redact($event)" [disabled]="createJobForm.invalid">Изменить
+        </button>
+      </div>
+      <div>
+        <button mat-raised-button color="warn" *ngIf="IJob" (click)="delete(IJob)">Удалить</button>
+      </div>
+    </ng-template>
+  </div>
 
 </form>
 

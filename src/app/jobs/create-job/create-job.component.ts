@@ -14,12 +14,13 @@ import {JobsService} from "../jobs.service";
 })
 export class CreateJobComponent implements OnInit {
   @Input() IJob?: IJob
-  @Output() newItemEvent = new EventEmitter<IJob>();
+  @Input() inOrder: boolean = false
+  @Output() newJobEvent = new EventEmitter<IJob>();
   createJobForm: FormGroup
   done: boolean = false
 
   addNewItem(job: IJob) {
-    this.newItemEvent.emit(job);
+    this.newJobEvent.emit(job);
   }
 
   constructor(private formBuilder: FormBuilder, private jobService: JobsService) {
@@ -49,6 +50,15 @@ export class CreateJobComponent implements OnInit {
 
   submit($event: MouseEvent) {
     $event.preventDefault()
+
+    if (this.inOrder) {
+      const job: IJob = this.createJobForm.value
+      if (confirm('Сохранить?')) {
+        this.jobService.createJob(job)
+      }
+      this.addNewItem(job)
+    }
+
     const job: IJob = this.createJobForm.value
     console.log(job)
     this.jobService.createJob(job).subscribe((res) => {
@@ -87,7 +97,7 @@ export class CreateJobComponent implements OnInit {
         this.createJobForm.reset()
         this.IJob = undefined
         this.jobService.getAllJobs()
-        this.addNewItem(job)
+        // this.addNewItem(job)
       })
     }
   }

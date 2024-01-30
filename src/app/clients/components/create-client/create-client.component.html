@@ -1,4 +1,4 @@
-<form class="container" [formGroup]="createClientForm">
+<form class="container card" [formGroup]="createClientForm">
 
   <h3 *ngIf="!client; else editClientH">Создать клиента</h3>
   <ng-template #editClientH>
@@ -21,7 +21,7 @@
     <input matInput placeholder="Введите комментарии" type="text" formControlName="comment">
   </mat-form-field>
 
-  <div *ngIf="!client">
+  <div *ngIf="!client" class="m0auto mw25">
     <button mat-raised-button (click)="createCar = !createCar">Добавить автомобиль
       <span *ngIf="!createCar">&#709;</span>
       <span *ngIf="createCar">&#708;</span>
