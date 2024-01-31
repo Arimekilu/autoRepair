@@ -32,7 +32,7 @@ export class CreateOrderComponent implements OnInit {
   selectedCar?: ICar
   nowMileage?: number
   nowMileageControl = new FormControl('', [Validators.required]);
-  orderCommentControl = new FormControl('', [Validators.required]);
+  orderCommentControl = new FormControl('');
   orderComment?: string
   totalPrise: number = 0
   btnDisables: boolean = false

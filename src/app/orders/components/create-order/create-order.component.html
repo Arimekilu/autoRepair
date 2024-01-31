@@ -127,7 +127,7 @@
   </div>
   <div class="m0auto">
     <button mat-raised-button color="primary"
-            [disabled]="(!selectedCar || !client || jobsToOrder.length === 0 || btnDisables)"
+            [disabled]="(!selectedCar || !client || jobsToOrder.length === 0 || btnDisables || nowMileageControl.invalid)"
             (click)="createOrder($event)">Создать заказ-наряд
     </button>
   </div>
