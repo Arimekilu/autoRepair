@@ -15,15 +15,15 @@
   <button mat-raised-button (click)="showOrders = !showOrders" *ngIf="client.orders">
     Заказ-наряды: {{ client.orders.length}}</button>
 
-  <div *ngIf="showOrders">
+  <div *ngIf="showOrders && client.orders">
     <div class="flexCol">
       <div *ngFor="let order of client.orders" class="shadow">
-        <app-order [order]="order"></app-order>
+        <app-order [order]="order" [client]="client"></app-order>
       </div>
     </div>
   </div>
 
-  <button mat-raised-button (click)="createOrder = !createOrder">Добавить заказ-наряд</button>
+  <button mat-raised-button (click)="createOrder = !createOrder" *ngIf="client.cars">Добавить заказ-наряд</button>
   <app-create-order *ngIf="createOrder" [client]="client"
                     [car]="client.cars.length === 1 ? client.cars[0] : undefined"></app-create-order>
   <button mat-raised-button (click)="editClient = !editClient">Редактировать клиента</button>

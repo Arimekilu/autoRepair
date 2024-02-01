@@ -47,7 +47,6 @@ export class ClientComponent implements OnInit {
   ngOnInit(): void {
     if (!this.client) {
       this.route.params.subscribe((params) => {
-          console.log(params)
           this.id = params["id"]
           this.clientsService.getClientById(params["id"]).subscribe((res) => {
             this.client = res

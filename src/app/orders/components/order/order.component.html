@@ -13,4 +13,7 @@
   <p>На сумму: {{totalPrise}}Р. <strong></strong></p>
   <hr *ngIf="order.comment">
   <p>{{order.comment}}</p>
+  <div *ngIf="client">
+    <button mat-raised-button color="warn" (click)="deleteOrder(order, client)">Удалить заказ</button>
+  </div>
 </div>
