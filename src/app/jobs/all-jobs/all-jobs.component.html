@@ -11,7 +11,7 @@
       <mat-select [formControl]="selectType">
         <mat-option (click)="filterJobsByType($event)" value="Все категории">Все категории</mat-option>
         <mat-option (click)="filterJobsByType($event)" value="Без категории">Без категории</mat-option>
-        <mat-option *ngFor="let type of types$ | async" (click)="filterJobsByType($event)" [value]="type" >
+        <mat-option *ngFor="let type of types$ | async" (click)="filterJobsByType($event)" [value]="type">
           {{type | uppercase}}
         </mat-option>
       </mat-select>
@@ -26,19 +26,20 @@
              placeholder="Введите название"
              aria-label="Поиск по названию"
              matInput
-             [formControl]="myControl"
+             [formControl]="filterByOverviewControl"
              [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let job of filteredOptions | async" [value]="job.overview">
+        <mat-option *ngFor="let job of filteredJobs$ | async" [value]="job.overview">
           {{job.overview}}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
   </form>
 
-  <div class="container" >
-    <div *ngFor="let job of filteredJobs">
+  <div class="container">
+    <div *ngFor="let job of filteredJobs$ | async">
       <app-job [job]="job"></app-job>
     </div>
   </div>
 </ng-template>
+<button mat-raised-button (click)="testDBJobs()">Получить клиентов</button>

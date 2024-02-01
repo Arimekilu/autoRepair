@@ -4,7 +4,7 @@ import {map, Observable, of, startWith} from "rxjs";
 import {IJob} from "../interfaces";
 import {IError} from "../../interfaces/error.interface";
 import {FormControl} from "@angular/forms";
-
+import {FirebaseService} from "../../fb/firebase.service";
 
 
 @Component({
@@ -18,29 +18,29 @@ export class AllJobsComponent implements OnInit {
   loading: boolean = true
   IError?: IError
   jobs?: IJob[]
-  filteredJobs: IJob[] | undefined
-  types?: Set<string>
+  filteredJobs?: IJob[] | undefined
+  filteredJobs$?: Observable<IJob[] | undefined>
   types$?: Observable<Set<string>>
   selectType = new FormControl
-  filteredOptions?: Observable<IJob[] | undefined>;
-  myControl = new FormControl('');
+  filterByOverviewControl = new FormControl('');
+  firebase
 
-
-  constructor(private jobsService: JobsService) {
+  constructor(private jobsService: JobsService, private fireBase: FirebaseService) {
+    this.firebase = fireBase
   }
 
 
   ngOnInit(): void {
     this.jobsService.allJobs$.subscribe((jobs) => {
         this.jobs = jobs
-        this.types = new Set
+        this.filteredJobs = jobs
+        const types: Set<string> = new Set
         for (const job of jobs) {
           if (job.type) {
-            this.types.add(job.type.toLowerCase())
+            types.add(job.type.toLowerCase())
           }
         }
-        this.types$ = of(this.types)
-        this.filteredJobs = jobs
+        this.types$ = of(types)
         this.loading = false
       },
       (error) => {
@@ -51,7 +51,7 @@ export class AllJobsComponent implements OnInit {
       }
     )
 
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.filteredJobs$ = this.filterByOverviewControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
     );
@@ -64,26 +64,36 @@ export class AllJobsComponent implements OnInit {
     const type: string | undefined = $event.target.outerText
 
     if (type === 'Все категории') {
-      console.log(type === 'Все категории')
+      this.filteredJobs$ = of(this.jobs)
       this.filteredJobs = this.jobs
-      console.log(this.filteredJobs)
-      console.log('Все категории')
     } else if (type === 'Без категории') {
-      this.filteredJobs = this.jobs?.filter(job => !('type' in job))
+      const filtered = this.jobs?.filter(job => !('type' in job))
+      this.filteredJobs = filtered
+      this.filteredJobs$ = of(filtered)
     } else if (type !== 'Без категории' && type) {
-      this.filteredJobs = this.jobs?.filter(job => job.type?.toLowerCase() === type.toLowerCase())
+      const filtered = this.jobs?.filter(job => job.type?.toLowerCase() === type.toLowerCase())
+      this.filteredJobs = filtered
+      this.filteredJobs$ = of(filtered)
     }
 
-    this.filteredOptions = of(this.filteredJobs)
+    this.filteredJobs$ = this.filterByOverviewControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
 
   }
 
   private _filter(value: string): IJob[] | undefined {
+    console.log('filter')
     const filterValue = value.toLowerCase();
     if (this.filteredJobs) {
-      const filteredByOverview = this.filteredJobs.filter(job => job.overview.toLowerCase().includes(filterValue));
-      this.filteredJobs = filteredByOverview
-      return filteredByOverview
+      return this.filteredJobs.filter(job => job.overview.toLowerCase().includes(filterValue))
     } else return undefined
   }
+
+  testDBJobs() {
+
+    this.firebase.getJobs()
+  }
+
 }

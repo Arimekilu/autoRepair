@@ -7,6 +7,7 @@ import {map, Observable} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyCeefMV0_PXkd_GeFyepWdCMrTbdtwU4R0",
   authDomain: "autorepair-c20c6.firebaseapp.com",
@@ -80,6 +81,16 @@ export class FirebaseService {
       // An error happened.
       console.log('Ошибка выхода', error)
     });
+  }
+
+  getJobs () {
+
+    // @ts-ignore
+    const ref = this.db.ref('jobs')
+    console.log(ref)
+
+
+
   }
 
 

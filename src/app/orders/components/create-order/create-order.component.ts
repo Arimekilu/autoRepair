@@ -16,30 +16,22 @@ import {ClientsService} from "../../../clients/services/clients.service";
 export class CreateOrderComponent implements OnInit {
   @Input() client?: IClient;
   @Input() car?: ICar
-
-  clients: IClient[] = []
+  clients?: IClient[]
+  clients$?: Observable<IClient[] | undefined>
   jobs: IJob[] = []
   jobsToOrder: IJob[] = []
+  filteredJobs?: IJob[]
+  filteredJobs$?: Observable<IJob[] | undefined>
   selectClientControl = new FormControl('');
-  options: string[] = [];
-  jobsOptions: string[] = []
-  filteredOptions?: Observable<string[]>;
-  filteredJobs?: Observable<IJob[] | undefined>;
-  filteredJobsByType?: IJob[]
-  filteredJobsByType$?: Observable<IJob[] | undefined>
   selectJobControl = new FormControl('');
   loading: boolean = true
   selectedCar?: ICar
-  nowMileage?: number
   nowMileageControl = new FormControl('', [Validators.required]);
   orderCommentControl = new FormControl('');
-  orderComment?: string
   totalPrise: number = 0
   btnDisables: boolean = false
   orderCreated: boolean = false
-  selectType = new FormControl
-  filteredJObs?: Observable<IJob[] | undefined>;
-  types?: Set<string>
+  selectJobType = new FormControl
   types$?: Observable<Set<string>>
   addNewJob: boolean = false
 
@@ -53,66 +45,68 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  newJob (job: IJob) {
+  newJob(job: IJob) {
     this.jobsToOrder.push(job)
     this.totalPrise += job.price
   }
 
   constructor(private jobService: JobsService, private orderService: OrderService, private clientService: ClientsService) {
+
   }
 
   ngOnInit(): void {
     this.jobService.allJobs$.subscribe((res => {
       this.jobs = res
-      this.filteredJobsByType = res
-      this.filteredJobsByType$ = of(res)
-      this.types = new Set
+      this.filteredJobs = res
+      this.filteredJobs$ = of(res)
+      const types: Set<string> = new Set
       for (const job of this.jobs) {
         if (job.type) {
-          console.log(job.type)
-          this.types.add(job.type.toLowerCase())
+          types.add(job.type.toLowerCase())
         }
       }
-      this.types$ = of(this.types)
-      for (let job of res) {
-        this.jobsOptions.push(job.overview)
-      }
-      this.loading = false
+      this.filteredJobs$ = this.selectJobControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterJob(value || '')),
+      );
+      this.types$ = of(types)
     }))
-
     if (this.car) {
       this.selectedCar = this.car
     }
-
     if (!this.client) {
       this.clientService.clients$.subscribe((res) => {
         this.clients = res
-        for (let client of res) {
-          this.options.push(client.name)
-        }
-        this.loading = false
+        this.clients$ = of(res)
+        this.clients$ = this.selectClientControl.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filterClient(value || '')),
+        );
       })
     }
 
-    this.filteredOptions = this.selectClientControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+    this.loading = false
 
-    this.filteredJobs = this.selectJobControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterJob(value || '')),
-    );
+    console.log(this.filteredJobs)
+
+
   }
 
-  private _filter(value: string): string[] {
+  private _filterClient(value: string): IClient[] | undefined {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    console.log('filter')
+    if (this.clients) {
+      return this.clients.filter(job => job.name.toLowerCase().includes(filterValue))
+    } else return undefined
+
   }
 
   private _filterJob(value: string): IJob[] | undefined {
+    console.log('filter')
     const filterValue = value.toLowerCase();
-    return this.filteredJobsByType?.filter(option => option.overview.toLowerCase().includes(filterValue));
+    if (this.filteredJobs) {
+      return this.filteredJobs.filter(job => job.overview.toLowerCase().includes(filterValue))
+    } else return undefined
   }
 
   filterJobsByType($event: MouseEvent) {
@@ -121,16 +115,20 @@ export class CreateOrderComponent implements OnInit {
 
     if (type === 'Все категории') {
       console.log(type === 'Все категории')
-      this.filteredJobsByType = this.jobs
-      console.log(this.filteredJobs)
-      console.log('Все категории')
+      this.filteredJobs = this.jobs
+      this.filteredJobs$ = of(this.jobs)
     } else if (type === 'Без категории') {
-      this.filteredJobsByType = this.jobs?.filter(job => !('type' in job))
+      this.filteredJobs = this.jobs?.filter(job => !('type' in job))
+      this.filteredJobs$ = of(this.jobs?.filter(job => !('type' in job)))
     } else if (type !== 'Без категории' && type) {
-      this.filteredJobsByType = this.jobs?.filter(job => job.type?.toLowerCase() === type.toLowerCase())
+      this.filteredJobs = this.jobs?.filter(job => job.type?.toLowerCase() === type.toLowerCase())
+      this.filteredJobs$ = of(this.jobs?.filter(job => job.type?.toLowerCase() === type.toLowerCase()))
     }
 
-    this.filteredJobsByType$ = of(this.filteredJobsByType)
+    this.filteredJobs$ = this.selectJobControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterJob(value || '')),
+    );
 
   }
 
@@ -148,10 +146,10 @@ export class CreateOrderComponent implements OnInit {
   selectClient($event: MouseEvent) {
     $event.preventDefault()
     const clientName = this.selectClientControl.value
-    this.client = this.clients.find(client => client.name.toLowerCase() == clientName?.toLowerCase())
-     if (this.client?.cars.length === 1) {
-       this.selectedCar = this.client.cars[0]
-     }
+    this.client = this.clients?.find(client => client.name.toLowerCase() == clientName?.toLowerCase())
+    if (this.client?.cars.length === 1) {
+      this.selectedCar = this.client.cars[0]
+    }
   }
 
   addItem(newItem: ICar) {
