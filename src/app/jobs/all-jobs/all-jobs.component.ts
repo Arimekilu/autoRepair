@@ -80,7 +80,6 @@ export class AllJobsComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value || '')),
     );
-
   }
 
   private _filter(value: string): IJob[] | undefined {
@@ -91,9 +90,6 @@ export class AllJobsComponent implements OnInit {
     } else return undefined
   }
 
-  testDBJobs() {
 
-    this.firebase.getJobs()
-  }
 
 }

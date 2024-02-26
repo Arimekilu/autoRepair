@@ -13,10 +13,16 @@ export class CreateCarComponent implements OnInit {
   @Input() client?: IClient
   @Input() carForEdit?: ICar
   @Output() newCarEvent = new EventEmitter<ICar>();
+  @Output() newCarEventBool = new EventEmitter<boolean>();
 
   newCarAdd(model: ICar) {
     this.newCarEvent.emit(model);
   }
+
+  newCarAddModal (model: boolean) {
+    this.newCarEventBool.emit(model);
+  }
+
 
   createCarForm: FormGroup;
   car: ICar | undefined
@@ -61,6 +67,8 @@ export class CreateCarComponent implements OnInit {
       this.client.cars ? this.client.cars.push(car) : this.client.cars = [car]
       this.clientService.editClient(this.client).subscribe((res) => {
         console.log('Новый', res)
+        this.done = true
+        this.newCarAddModal(this.done)
       })
     } else
       this.newCarAdd(car)

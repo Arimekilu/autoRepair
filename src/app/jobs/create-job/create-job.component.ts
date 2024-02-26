@@ -52,9 +52,6 @@ export class CreateJobComponent implements OnInit {
 
     if (this.inOrder) {
       const job: IJob = this.createJobForm.value
-      if (confirm('Сохранить?')) {
-        this.jobService.createJob(job)
-      }
       this.addNewItem(job)
     } else {
       const job: IJob = this.createJobForm.value

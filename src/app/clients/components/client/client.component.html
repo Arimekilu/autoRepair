@@ -6,8 +6,6 @@
 
   <button mat-raised-button (click)="showCars = !showCars">
     Автомобили: {{client.cars ? client.cars.length : '0'}}</button>
-  <button mat-raised-button (click)="addCar = !addCar" *ngIf="!client.cars">Добавить автомобиль</button>
-  <app-create-car [client]="client" *ngIf="addCar"></app-create-car>
   <div *ngIf="showCars && client.cars">
     <app-car *ngFor="let car of client.cars" [car]="car" [client]="client" [openInClient]="true"></app-car>
   </div>
@@ -19,6 +17,8 @@
     <div class="flexCol">
       <div *ngFor="let order of client.orders" class="shadow">
         <app-order [order]="order" [client]="client"></app-order>
+        <button mat-raised-button (click)="editOrder = !editOrder">Редактировать заказ</button>
+        <app-create-order [client]="client" [order]="order" *ngIf="editOrder"></app-create-order>
       </div>
     </div>
   </div>
@@ -28,6 +28,12 @@
                     [car]="client.cars.length === 1 ? client.cars[0] : undefined"></app-create-order>
   <button mat-raised-button (click)="editClient = !editClient">Редактировать клиента</button>
   <app-create-client *ngIf="editClient" [client]="client"></app-create-client>
+  <button mat-raised-button (click)="addCar = !addCar">Добавить автомобиль</button>
+  <app-create-car *ngIf="addCar && !createCarDone" [client]="client" (newCarEventBool)="isCreatedCar($event)"></app-create-car>
+  <div class="success" *ngIf="createCarDone">
+    <p>Автомобиль добавлен</p>
+    <button mat-raised-button (click)="createCarDone = false; addCar = false">Ок</button>
+  </div>
   <button mat-raised-button color="warn" (click)="delete(client)">Удалить клиента</button>
 </div>
 

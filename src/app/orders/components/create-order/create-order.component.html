@@ -57,16 +57,16 @@
     <div class="container card">
       <h3 class="fs15 m0auto">Работы</h3>
 
-        <mat-form-field>
-          <mat-label>Категория работ</mat-label>
-          <mat-select [formControl]="selectJobType">
-            <mat-option (click)="filterJobsByType($event)" value="Все категории">Все категории</mat-option>
-            <mat-option (click)="filterJobsByType($event)" value="Без категории">Без категории</mat-option>
-            <mat-option *ngFor="let type of types$ | async" (click)="filterJobsByType($event)" [value]="type">
-              {{type | uppercase}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <mat-form-field>
+        <mat-label>Категория работ</mat-label>
+        <mat-select [formControl]="selectJobType">
+          <mat-option (click)="filterJobsByType($event)" value="Все категории">Все категории</mat-option>
+          <mat-option (click)="filterJobsByType($event)" value="Без категории">Без категории</mat-option>
+          <mat-option *ngFor="let type of types$ | async" (click)="filterJobsByType($event)" [value]="type">
+            {{type | uppercase}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
 
       <form *ngIf="filteredJobs$" class="container">
@@ -92,47 +92,54 @@
     </div>
 
 
-  <button mat-raised-button (click)="addNewJob = !addNewJob">Добавить новые работы
-    <strong *ngIf="!addNewJob">&#709;</strong>
-    <strong *ngIf="addNewJob">&#708;</strong>
-  </button>
-  <app-create-job *ngIf="addNewJob" (newJobEvent)="newJob($event)" [inOrder]="true"></app-create-job>
+      <button mat-raised-button color="primary" (click)="addNewJob = !addNewJob" class="m0auto">Добавить новые работы
+        <strong *ngIf="!addNewJob">&#709;</strong>
+        <strong *ngIf="addNewJob">&#708;</strong>
+      </button>
 
-  <div *ngIf="jobsToOrder.length > 0" class="card">
-    <strong>Выбранные работы:</strong>
+    <app-create-job *ngIf="addNewJob" (newJobEvent)="newJob($event)" [inOrder]="true"></app-create-job>
 
-    <div *ngFor="let job of jobsToOrder">
-      <p>{{job.overview}} <span>{{job.price + 'Р'}}</span></p>
-      <p>{{job.comment}}</p>
+    <div *ngIf="jobsToOrder.length > 0" class="card jobToOrder">
+      <h3 style="font-size: 1.3rem">Выбранные работы:</h3>
+      <div *ngFor="let job of jobsToOrder">
+        <div class="jobToOrderString">
+          <p>{{job.overview}} <strong>{{job.price + 'Р'}}</strong></p>
+          <button mat-icon-button color="warn" (click)="deleteJobFromOrder(job)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <p>{{job.comment}}</p>
+      </div>
+      <hr>
+      <p>Всего работ: <strong>{{jobsToOrder.length}}</strong></p>
+      <p>На сумму: <strong>{{totalPrise}}Р.</strong></p>
     </div>
-    <p>Всего работ: <strong>{{jobsToOrder.length}}</strong></p>
-    <p>На сумму: <strong>{{totalPrise}}Р.</strong></p>
-  </div>
 
-  <div>
-    <form>
-      <div class="card">
-        <mat-form-field class="example-full-width">
-          <mat-label>Текущий пробег</mat-label>
-          <input matInput placeholder="Текущий пробег" type="number" [formControl]="nowMileageControl">
-        </mat-form-field>
-      </div>
-      <div class="card">
-        <mat-form-field class="example-full-width">
-          <mat-label>Комментарии</mat-label>
-          <textarea matInput placeholder="Комментарии к заказ-наряду" [formControl]="orderCommentControl"></textarea>
-        </mat-form-field>
-      </div>
-    </form>
-  </div>
-  <div class="m0auto">
-    <button mat-raised-button color="primary"
-            [disabled]="(!selectedCar || !client || jobsToOrder.length === 0 || btnDisables || nowMileageControl.invalid)"
-            (click)="createOrder($event)">Создать заказ-наряд
-    </button>
-  </div>
+    <div>
+      <form>
+        <div class="card">
+          <mat-form-field class="example-full-width">
+            <mat-label>Текущий пробег</mat-label>
+            <input matInput placeholder="Текущий пробег" type="number" [formControl]="nowMileageControl">
+          </mat-form-field>
+        </div>
+        <div class="card">
+          <mat-form-field class="example-full-width">
+            <mat-label>Комментарии</mat-label>
+            <textarea matInput placeholder="Комментарии к заказ-наряду" [formControl]="orderCommentControl"></textarea>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+    <div class="m0auto">
+      <button mat-raised-button color="primary"
+              [disabled]="(!selectedCar || !client || jobsToOrder.length === 0 || btnDisables || nowMileageControl.invalid)"
+              (click)="order ? editOrder($event) : createOrder($event)">
+        {{order ? 'Редактировать' : 'Создать заказ-наряд'}}
+      </button>
+    </div>
 
-  <div class="success" *ngIf="orderCreated" (click)="orderCreated = false">Заказ-наряд создан</div>
+    <div class="success" *ngIf="orderCreated" (click)="orderCreated = false">{{order ? 'Заказ-наряд отредактирован' : 'Заказ-наряд создан'}}</div>
   </div>
 
 </ng-template>

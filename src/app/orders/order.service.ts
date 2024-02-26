@@ -10,6 +10,21 @@ export class OrderService {
 
   }
 
+  editOrder (order: IOrder, editedOrder: IOrder,  client: IClient, selectedCar: ICar, mileage?: number) {
+    const clientForPut: IClient = client
+    if (mileage) {
+      if (clientForPut.cars?.find(car => car.vin == selectedCar.vin)) {
+        // @ts-ignore
+        clientForPut.cars.find(car => car.vin == selectedCar.vin).mileage = mileage
+      }  else return
+    }
+    if (clientForPut.orders.indexOf(order)) {
+      const idx = clientForPut.orders.indexOf(order)
+      clientForPut.orders.splice(0, 1, editedOrder)
+    }
+    return this.httpClient.put(`${this.firebaseService.firebaseConfig.databaseURL}/clients/${client.id}.json`, clientForPut)
+  }
+
   setOrder (order: IOrder, client: IClient, selectedCar: ICar, mileage?: number) {
     const clientForPut: IClient = client
     if (mileage) {

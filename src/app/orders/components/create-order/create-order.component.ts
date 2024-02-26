@@ -16,6 +16,8 @@ import {ClientsService} from "../../../clients/services/clients.service";
 export class CreateOrderComponent implements OnInit {
   @Input() client?: IClient;
   @Input() car?: ICar
+  @Input() order?: IOrder
+  edit: boolean = false
   clients?: IClient[]
   clients$?: Observable<IClient[] | undefined>
   jobs: IJob[] = []
@@ -46,8 +48,15 @@ export class CreateOrderComponent implements OnInit {
   }
 
   newJob(job: IJob) {
+    if (confirm('Сохранить в постоянные работы?')) {
+      this.jobService.createJob(job).subscribe(res => {
+        console.log(res)
+      })
+    }
     this.jobsToOrder.push(job)
     this.totalPrise += job.price
+    this.addNewJob = false
+
   }
 
   constructor(private jobService: JobsService, private orderService: OrderService, private clientService: ClientsService) {
@@ -85,11 +94,18 @@ export class CreateOrderComponent implements OnInit {
       })
     }
 
+    if (this.order) {
+      this.selectedCar = this.order.car
+      this.jobsToOrder = this.order.jobs
+      this.orderCommentControl.setValue(this.order.comment || null)
+      this.nowMileageControl.setValue(this.order.mileage + '' || null)
+      this.totalPrise = 0
+      for (const job of this.jobsToOrder) {
+        this.totalPrise += (+job.price || 0)
+      }
+    }
+
     this.loading = false
-
-    console.log(this.filteredJobs)
-
-
   }
 
   private _filterClient(value: string): IClient[] | undefined {
@@ -156,6 +172,35 @@ export class CreateOrderComponent implements OnInit {
     this.selectedCar = newItem
   }
 
+  editOrder($event: MouseEvent) {
+    $event.preventDefault()
+    this.btnDisables = true
+
+    const orderComment = this.orderCommentControl.value ? this.orderCommentControl.value : ''
+    const nowMileage = this.nowMileageControl.value
+
+    if (this.client && this.selectedCar && this.jobsToOrder.length > 0 && nowMileage && this.order) {
+      const order: IOrder = {
+        car: this.selectedCar,
+        jobs: this.jobsToOrder,
+        mileage: (+nowMileage || this.selectedCar.mileage),
+        date: (new Date).toString(),
+        comment: orderComment
+      }
+
+      this.orderService.editOrder(order, this.order, this.client, this.selectedCar, +nowMileage)?.subscribe((res) => {
+        console.log(res)
+        this.client = undefined
+        this.jobsToOrder = []
+        this.nowMileageControl.reset()
+        this.selectedCar = undefined
+        this.orderCreated = true
+        this.btnDisables = false
+      })
+
+    }
+  }
+
   createOrder($event: MouseEvent) {
     $event.preventDefault()
     this.btnDisables = true
@@ -185,4 +230,8 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
+  deleteJobFromOrder(job: IJob) {
+    const idx = this.jobsToOrder.indexOf(job)
+    this.jobsToOrder.splice(idx, 1)
+  }
 }

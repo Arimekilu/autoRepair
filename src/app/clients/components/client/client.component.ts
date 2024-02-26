@@ -16,6 +16,8 @@ export class ClientComponent implements OnInit {
   showCars: boolean = false
   showOrders: boolean = false
   createOrder: boolean = false
+  editOrder: boolean = false
+  createCarDone: boolean = false
   addCar: boolean = false
   editClient: boolean = false
   loading: boolean = true
@@ -75,4 +77,7 @@ export class ClientComponent implements OnInit {
 
   protected readonly console = console;
 
+  isCreatedCar($event: boolean) {
+    this.createCarDone = $event
+  }
 }

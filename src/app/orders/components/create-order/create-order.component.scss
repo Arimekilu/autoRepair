@@ -16,3 +16,16 @@
 //.example-full-width {
 //  width: 100%;
 //}
+
+.jobToOrder {
+  font-size: 1.1rem;
+}
+
+.jobToOrderString {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 10px ;
+}

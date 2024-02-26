@@ -1,4 +1,4 @@
-<mat-spinner *ngIf="!authObserve; else loaded"></mat-spinner>
+<mat-spinner class="m30auto" *ngIf="!authObserve; else loaded"></mat-spinner>
 <ng-template #loaded>
   <app-nav></app-nav>
   <router-outlet></router-outlet>
