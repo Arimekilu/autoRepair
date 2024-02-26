@@ -79,7 +79,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     HttpClientModule,
     JobsService,
     INTERCEPTOR_PROVIDER,
-    ],
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

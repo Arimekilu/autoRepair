@@ -1,3 +1,6 @@
-<app-nav ></app-nav>
-<router-outlet ></router-outlet>
+<mat-spinner *ngIf="!authObserve; else loaded"></mat-spinner>
+<ng-template #loaded>
+  <app-nav></app-nav>
+  <router-outlet></router-outlet>
+</ng-template>
 

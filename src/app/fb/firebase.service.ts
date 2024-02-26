@@ -3,9 +3,13 @@ import {initializeApp} from "firebase/app";
 import {getDatabase} from 'firebase/database'
 import {createUserWithEmailAndPassword, getAuth, signOut} from "firebase/auth";
 import {authState} from "rxfire/auth";
-import {map, Observable} from "rxjs";
+import {map, Observable, of} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
+// import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+// import {getDatabase, provideDatabase, set, ref, onValue} from '@angular/fire/database';
+
+
 
 
 const firebaseConfig = {
@@ -26,8 +30,9 @@ export class FirebaseService {
   app
   auth
   authObserve$: Observable<boolean>
-  db
+  dataBase
   error?: Object
+  loading: Observable<boolean> = of(true)
   constructor(private router: Router) {
     this.firebaseConfig = {
       apiKey: "AIzaSyCeefMV0_PXkd_GeFyepWdCMrTbdtwU4R0",
@@ -43,12 +48,19 @@ export class FirebaseService {
 
    authState(this.auth).subscribe(user => {
 
-    })
+    },
+     error1 => {
+       console.log(error1)
+       this.loading = of(false)
+     },
+     () => {
+      this.loading = of(false)
+     })
 
     this.authObserve$ = authState(this.auth).pipe(
       map(res => !!res)
     )
-    this.db = getDatabase(this.app);
+    this.dataBase = getDatabase(this.app);
 
   }
 
@@ -83,13 +95,9 @@ export class FirebaseService {
     });
   }
 
+
+
   getJobs () {
-
-    // @ts-ignore
-    const ref = this.db.ref('jobs')
-    console.log(ref)
-
-
 
   }
 
