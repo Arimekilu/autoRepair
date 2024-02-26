@@ -1,13 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IOrder} from "../../../clients/interfaces";
+import {IClient, IOrder} from "../../../clients/interfaces";
+import {OrderService} from "../../order.service";
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss']
+  styleUrls: ['./order.component.scss'],
+  providers: [OrderService]
 })
-export class OrderComponent implements OnInit{
+export class OrderComponent implements OnInit {
   @Input() order?: IOrder
+  @Input() client?: IClient
 
   totalPrise: number = 0
 
@@ -19,6 +22,15 @@ export class OrderComponent implements OnInit{
     }
   }
 
+  constructor(private orderService: OrderService) {
+  }
 
 
+  deleteOrder(order: IOrder, client: IClient) {
+    if (confirm('Удалить заказ?')) {
+      this.orderService.deleteOrder(client, order).subscribe(res => {
+        console.log(res)
+      })
+    }
+  }
 }

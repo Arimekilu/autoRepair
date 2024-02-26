@@ -26,6 +26,12 @@ export class OrderService {
   return this.httpClient.put(`${this.firebaseService.firebaseConfig.databaseURL}/clients/${client.id}.json`, clientForPut)
   }
 
+  deleteOrder (client: IClient, order: IOrder) {
+    const index = client.orders.indexOf(order)
+    client.orders.splice(index, 1)
+    return this.httpClient.put(`${this.firebaseService.firebaseConfig.databaseURL}/clients/${client.id}.json`, client)
+  }
+
 
 
 

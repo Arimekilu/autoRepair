@@ -9,6 +9,11 @@ export interface IClient {
   id?: string
 }
 
+export interface carName {
+  mark: string,
+  model: string
+}
+
 export interface ICar {
   mark: string,
   model: string,
