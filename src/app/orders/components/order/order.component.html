@@ -1,4 +1,4 @@
-<div *ngIf="order">
+<div *ngIf="order && !editOrder">
   <h3>{{order.date | date: "dd MMMM YYYY" }}</h3>
   <p>Автомобиль: <strong>{{order.car.mark + ' ' + order.car.model }}</strong></p>
   <p>Пробег на момент выполнения: <strong>{{order.mileage}}км.</strong></p>
@@ -13,7 +13,9 @@
   <p>На сумму: {{totalPrise}}Р. <strong></strong></p>
   <hr *ngIf="order.comment">
   <p>{{order.comment}}</p>
-  <div *ngIf="client">
-    <button mat-raised-button color="warn" (click)="deleteOrder(order, client)">Удалить заказ</button>
-  </div>
+</div>
+<app-create-order [client]="client" [order]="order" *ngIf="editOrder"></app-create-order>
+<div *ngIf="client && order">
+  <button mat-raised-button (click)="editOrder = !editOrder" *ngIf="!editOrder"> Редактировать заказ</button>
+  <button mat-raised-button color="warn" (click)="deleteOrder(order, client)">Удалить заказ</button>
 </div>

@@ -11,7 +11,7 @@ import {OrderService} from "../../order.service";
 export class OrderComponent implements OnInit {
   @Input() order?: IOrder
   @Input() client?: IClient
-
+  editOrder: boolean = false
   totalPrise: number = 0
 
   ngOnInit(): void {
