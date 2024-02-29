@@ -26,8 +26,8 @@
       </form>
     </div>
 
-    <div *ngIf="client" class="card">
-      <mat-card class="example-card" *ngIf="client">
+    <div *ngIf="client" >
+      <mat-card  *ngIf="client">
         <mat-card-header>
           <mat-card-title>{{client.name}}</mat-card-title>
           <mat-card-subtitle>{{client.phone}}</mat-card-subtitle>
@@ -54,7 +54,7 @@
       </ng-template>
     </div>
 
-    <div class="container card">
+    <div class="container">
       <h3 class="fs15 m0auto">Работы</h3>
 
       <mat-form-field>
@@ -99,7 +99,7 @@
 
     <app-create-job *ngIf="addNewJob" (newJobEvent)="newJob($event)" [inOrder]="true"></app-create-job>
 
-    <div *ngIf="jobsToOrder.length > 0" class="card jobToOrder">
+    <div *ngIf="jobsToOrder.length > 0" >
       <h3 style="font-size: 1.3rem">Выбранные работы:</h3>
       <div *ngFor="let job of jobsToOrder">
         <div class="jobToOrderString">
@@ -110,6 +110,7 @@
         </div>
         <p>{{job.comment}}</p>
       </div>
+      <br>
       <hr>
       <p>Всего работ: <strong>{{jobsToOrder.length}}</strong></p>
       <p>На сумму: <strong>{{totalPrise}}Р.</strong></p>
@@ -117,13 +118,13 @@
 
     <div>
       <form>
-        <div class="card">
+        <div>
           <mat-form-field class="example-full-width">
             <mat-label>Текущий пробег</mat-label>
             <input matInput placeholder="Текущий пробег" type="number" [formControl]="nowMileageControl">
           </mat-form-field>
         </div>
-        <div class="card">
+        <div >
           <mat-form-field class="example-full-width">
             <mat-label>Комментарии</mat-label>
             <textarea matInput placeholder="Комментарии к заказ-наряду" [formControl]="orderCommentControl"></textarea>
